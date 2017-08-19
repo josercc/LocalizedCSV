@@ -14,13 +14,14 @@ typora-copy-images-to: ./images
 
 ## 未来计划
 
-* 支持读取源码NSLocalizeString()读取键值保存到原语言包
+* 自动提取工程需要国际化文本 难度较大 有实现方法可以提给我 现在只能想到查找设置UILabel UIButton UIViewController标题 等代码处
 
 ## 现在支持的功能
 
 * 支持从已经翻译的`CSV`文件读取已经翻译的内容一键保存到指定的`.Strings`文件里面
 * 支持查看某种语言未翻译和已翻译部分
 * 支持导出还未翻译的字段
+* 支持读取源码NSLocalizeString()读取键值保存到原语言包
 
 ## 重要说明
 
@@ -29,7 +30,7 @@ typora-copy-images-to: ./images
 
 ## 下载
 
-* 直接下载Mac客户端: [下载](https://github.com/josercc/LocalizedCSV/blob/master/LocalizedCSV/Release/v1.zip?raw=true)
+* 直接下载Mac客户端: [下载](https://github.com/josercc/LocalizedCSV/blob/master/LocalizedCSV/Release/v2.zip?raw=true)
 * 下载源码运行即可
 
 ## 使用说明
@@ -71,6 +72,14 @@ typora-copy-images-to: ./images
   ![4A5862EA-6ED6-498D-80A5-C41083D19238](images/4A5862EA-6ED6-498D-80A5-C41083D19238.png)
 
   > 导出的CSV需要全局把`{R}`替换成`,`
+
+* 查询工程使用NSLocalizeString()的字符串 
+
+  ![ACC3551F-1767-48FF-AA7E-692C0209F6DD](images/ACC3551F-1767-48FF-AA7E-692C0209F6DD.png)
+
+  ![74B0B83A-E715-4EEC-A5C1-F0D954BD9EDD](images/74B0B83A-E715-4EEC-A5C1-F0D954BD9EDD.png)
+
+  点击保存到指定目录即可。
 
 ## 其他支持
 
