@@ -72,6 +72,26 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
         return (v,true)
     }
-
+    @IBAction func findProjLocalizeString(_ sender: Any) {
+        let openPannel = NSOpenPanel()
+        openPannel.canChooseFiles = false
+        openPannel.canChooseDirectories = true
+        guard openPannel.runModal() == NSFileHandlingPanelOKButton else {
+            return
+        }
+        guard let path = openPannel.urls.first?.absoluteString.replacingOccurrences(of: "file://", with: "") else {
+            return
+        }
+        
+        guard let rootController = NSApp.mainWindow?.contentViewController else {
+            return
+        }
+        guard let controller = rootController.storyboard?.instantiateController(withIdentifier: "FindLocalizeStringController") as? FindLocalizeStringController else {
+            return
+        }
+        controller.findPath = path
+        rootController.presentViewControllerAsSheet(controller)
+        
+    }
 }
 

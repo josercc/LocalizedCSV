@@ -48,14 +48,16 @@ class LocalizeStringKit {
         localizeDictionary[key] = value
     }
     
-    func findString(string:String) -> String? {
-        guard let range = string.range(of: "\"") else {
-            return nil
-        }
-        let subString = string.substring(from: string.index(range.upperBound, offsetBy: 0))
-        guard let range1 = subString.range(of: "\"") else {
-            return nil
-        }
-        return subString.substring(to: subString.index(range1.lowerBound, offsetBy: 0))
-    }
 }
+
+func findString(string:String) -> String? {
+    guard let range = string.range(of: "\"") else {
+        return nil
+    }
+    let subString = string.substring(from: string.index(range.upperBound, offsetBy: 0))
+    guard let range1 = subString.range(of: "\"") else {
+        return nil
+    }
+    return subString.substring(to: subString.index(range1.lowerBound, offsetBy: 0))
+}
+

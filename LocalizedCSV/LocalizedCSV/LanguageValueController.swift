@@ -53,6 +53,7 @@ class LanguageValueController: NSViewController, NSTableViewDataSource, NSTableV
             }
             content += "\"\(c.element.key)\" = \"\(c.element.value)\";\n"
         }
+        content = content.replacingOccurrences(of: "\\", with: "\\\\")
         try? content.write(toFile: "\(path)/Localizable.strings", atomically: true, encoding: String.Encoding.utf8)
     }
     
