@@ -38,11 +38,11 @@ class LocalizeStringKit {
     }
     
     func findKeyValue(content:String) {
-        let list = content.components(separatedBy: "=")
+        var list = content.components(separatedBy: "=")
         guard list.count == 2 else {
             return
         }
-        guard let key = findString(string: list[0]), let value = findString(string: list[1]) else {
+        guard let key = findString(string: &list[0]), let value = findString(string: &list[1]) else {
             return
         }
         localizeDictionary[key] = value
@@ -50,14 +50,16 @@ class LocalizeStringKit {
     
 }
 
-func findString(string:String) -> String? {
+func findString(string:inout String) -> String? {
     guard let range = string.range(of: "\"") else {
         return nil
     }
-    let subString = string.substring(from: string.index(range.upperBound, offsetBy: 0))
-    guard let range1 = subString.range(of: "\"") else {
+    string = string.substring(from: string.index(range.upperBound, offsetBy: 0))
+    guard let range1 = string.range(of: "\"") else {
         return nil
     }
-    return subString.substring(to: subString.index(range1.lowerBound, offsetBy: 0))
+    let findText = string.substring(to: string.index(range1.lowerBound, offsetBy: 0))
+    string = string.substring(from: string.index(range1.upperBound, offsetBy: 0))
+    return findText
 }
 

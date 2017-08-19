@@ -15,6 +15,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         // Insert code here to initialize your application
+        let c = "[UIAlertController alertControllerWithTitle:@\"title\"  message:@\"message\" preferredStyle:alertControllerStyle]"
+        print(findUIAlertController(content:c))
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
@@ -93,5 +95,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         rootController.presentViewControllerAsSheet(controller)
         
     }
+    
+    @IBAction func checkProjectAllString(_ sender: Any) {
+    }
+    
+    
 }
 
