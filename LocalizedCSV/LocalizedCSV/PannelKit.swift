@@ -30,6 +30,6 @@ class PannelKit {
         guard openPannel.runModal() == NSFileHandlingPanelOKButton else {
             return nil
         }
-        return openPannel.urls.first?.absoluteString
+        return openPannel.urls.first?.absoluteString.replacingOccurrences(of: "file://", with: "")
     }
 }

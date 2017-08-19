@@ -42,7 +42,7 @@ class LocalizeStringKit {
         guard list.count == 2 else {
             return
         }
-        guard let key = findString(string: &list[0]), let value = findString(string: &list[1]) else {
+        guard let key = findString(string: list[0]).0, let value = findString(string: list[1]).0 else {
             return
         }
         localizeDictionary[key] = value
@@ -50,16 +50,29 @@ class LocalizeStringKit {
     
 }
 
-func findString(string:inout String) -> String? {
-    guard let range = string.range(of: "\"") else {
-        return nil
+/// 查找""中间的字符串
+///
+/// - Parameter string: 需要查找的字符串
+/// - Returns: $0查找出来的字符串 $1代表查询剩余的字符串
+func findString(string: String) -> (String?,String) {
+    /// 替换字符串中的\"防止字符串"的干扰
+    var remainContent = string.replacingOccurrences(of: "\\\"", with: "{p}")
+    /// 如果查找的字符串中不存在"字符则不存在
+    guard let range = remainContent.range(of: "\"") else {
+        return (nil,remainContent)
     }
-    string = string.substring(from: string.index(range.upperBound, offsetBy: 0))
-    guard let range1 = string.range(of: "\"") else {
-        return nil
+    /// 获取首个"之后的字符串
+    remainContent = remainContent.substring(from: remainContent.index(range.upperBound, offsetBy: 0))
+    /// 获取最后一个"之后的字符串
+    guard let range1 = remainContent.range(of: "\"") else {
+        return (nil,remainContent)
     }
-    let findText = string.substring(to: string.index(range1.lowerBound, offsetBy: 0))
-    string = string.substring(from: string.index(range1.upperBound, offsetBy: 0))
-    return findText
+    /// 获取最后一个"字符串之前的内容
+    let findText = remainContent.substring(to: remainContent.index(range1.lowerBound, offsetBy: 0))
+    /// 获取剩余的字符串
+    remainContent = remainContent.substring(from: remainContent.index(range1.upperBound, offsetBy: 0))
+    /// 再把{p}替换成\"
+    remainContent = remainContent.replacingOccurrences(of: "{p}", with: "\\\"")
+    return (findText,remainContent)
 }
 

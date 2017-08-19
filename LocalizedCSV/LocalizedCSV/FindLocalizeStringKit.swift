@@ -81,11 +81,10 @@ class FindLocalizeStringKit {
         var key:String?
         var value:String?
         for c in listContent.enumerated() {
-            var element = c.element
             if c.offset == 0 {
-                key = findString(string: &element)
+                key = findString(string: c.element).0
             } else if c.offset == 1 {
-                value = findString(string: &element)
+                value = findString(string: c.element).0
             }
         }
         if let k = key {

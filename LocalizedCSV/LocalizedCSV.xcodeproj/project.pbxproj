@@ -18,6 +18,7 @@
 		5D499EF81F47D611000F24B1 /* FindLocalizeStringController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D499EF71F47D611000F24B1 /* FindLocalizeStringController.swift */; };
 		5D499EFA1F4822C2000F24B1 /* PannelKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D499EF91F4822C2000F24B1 /* PannelKit.swift */; };
 		5D499EFC1F48252D000F24B1 /* FilndUnLocalizeStringKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D499EFB1F48252D000F24B1 /* FilndUnLocalizeStringKit.swift */; };
+		5D84B93A1F4A851E009EA4A2 /* FileKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D84B9391F4A851E009EA4A2 /* FileKit.swift */; };
 		9B82C449E090FFB5A46E370C /* Pods_LocalizedCSV.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04F0EA87C987B058659C431A /* Pods_LocalizedCSV.framework */; };
 /* End PBXBuildFile section */
 
@@ -36,6 +37,7 @@
 		5D499EF71F47D611000F24B1 /* FindLocalizeStringController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FindLocalizeStringController.swift; sourceTree = "<group>"; };
 		5D499EF91F4822C2000F24B1 /* PannelKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PannelKit.swift; sourceTree = "<group>"; };
 		5D499EFB1F48252D000F24B1 /* FilndUnLocalizeStringKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilndUnLocalizeStringKit.swift; sourceTree = "<group>"; };
+		5D84B9391F4A851E009EA4A2 /* FileKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileKit.swift; sourceTree = "<group>"; };
 		78AB411939E0316119BB7FDD /* Pods-LocalizedCSV.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LocalizedCSV.release.xcconfig"; path = "Pods/Target Support Files/Pods-LocalizedCSV/Pods-LocalizedCSV.release.xcconfig"; sourceTree = "<group>"; };
 		9CA2E9213676361ECC6388E9 /* Pods-LocalizedCSV.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LocalizedCSV.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LocalizedCSV/Pods-LocalizedCSV.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -94,6 +96,7 @@
 				5D499EF71F47D611000F24B1 /* FindLocalizeStringController.swift */,
 				5D499EF91F4822C2000F24B1 /* PannelKit.swift */,
 				5D499EFB1F48252D000F24B1 /* FilndUnLocalizeStringKit.swift */,
+				5D84B9391F4A851E009EA4A2 /* FileKit.swift */,
 			);
 			path = LocalizedCSV;
 			sourceTree = "<group>";
@@ -237,6 +240,7 @@
 				5D499EFC1F48252D000F24B1 /* FilndUnLocalizeStringKit.swift in Sources */,
 				5D499EF41F46AD5E000F24B1 /* LocalizeStringKit.swift in Sources */,
 				5D499EF01F467E75000F24B1 /* CSVParseKit.swift in Sources */,
+				5D84B93A1F4A851E009EA4A2 /* FileKit.swift in Sources */,
 				5D499EE11F459ACA000F24B1 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
