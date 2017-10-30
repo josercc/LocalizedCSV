@@ -56,7 +56,7 @@ class LocalizeStringKit {
 /// - Returns: $0查找出来的字符串 $1代表查询剩余的字符串
 func findString(string: String) -> (String?,String) {
     /// 替换字符串中的\"防止字符串"的干扰
-    var remainContent = string.replacingOccurrences(of: "\\\"", with: "{p}")
+    var remainContent = string.replacingOccurrences(of: "\\\"", with: "{R}")
     /// 如果查找的字符串中不存在"字符则不存在
     guard let range = remainContent.range(of: "\"") else {
         return (nil,remainContent)
@@ -68,11 +68,10 @@ func findString(string: String) -> (String?,String) {
         return (nil,remainContent)
     }
     /// 获取最后一个"字符串之前的内容
-    let findText = remainContent.substring(to: remainContent.index(range1.lowerBound, offsetBy: 0))
+    let findText = remainContent.substring(to: remainContent.index(range1.lowerBound, offsetBy: 0)).replacingOccurrences(of: "{R}", with: "\\\"")
     /// 获取剩余的字符串
     remainContent = remainContent.substring(from: remainContent.index(range1.upperBound, offsetBy: 0))
-    /// 再把{p}替换成\"
-    remainContent = remainContent.replacingOccurrences(of: "{p}", with: "\\\"")
+    /// 再把{R}替换成\"
     return (findText,remainContent)
 }
 

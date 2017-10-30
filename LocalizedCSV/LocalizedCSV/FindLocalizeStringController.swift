@@ -56,7 +56,7 @@ class FindLocalizeStringController: NSViewController, NSTableViewDataSource {
             }
             content += "\"\(c.element.key)\" = \"\(c.element.value)\";\n"
         }
-        content = content.replacingOccurrences(of: "\\", with: "\\\\")
+//        content = content.replacingOccurrences(of: "\\", with: "\\\\")
         try? content.write(toFile: "\(path)/Localizable.strings", atomically: true, encoding: String.Encoding.utf8)
         self.dismiss(nil)
     }

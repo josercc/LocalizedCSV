@@ -19,21 +19,17 @@ class LanguageValueController: NSViewController, NSTableViewDataSource, NSTableV
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = self.item?.name
-        guard let _ = self.item else {
+        guard let item = self.item else {
             return
+        }
+        for c in item.list.enumerated() {
+            print("->>:\(c.element.key)\n->>:\(c.element.value)\n\n")
         }
         keys.append(contentsOf: LocalizeStringKit.shareManager().localizeDictionary.keys)
         self.tableView.reloadData()
     }
     
     @IBAction func save(_ sender: Any) {
-        guard verifyCount == 0 else {
-            let alert = NSAlert()
-            alert.alertStyle = .warning
-            alert.messageText = "保存之前必须翻译完所有字段"
-            alert.runModal()
-            return
-        }
         let openPannel = NSOpenPanel()
         openPannel.canChooseFiles = false
         openPannel.canChooseDirectories = true
@@ -47,11 +43,24 @@ class LanguageValueController: NSViewController, NSTableViewDataSource, NSTableV
         guard let item = self.item else {
             return
         }
-        for c in item.list.enumerated() {
-            guard c.element.value.characters.count > 0 else {
+        for c in keys.enumerated() {
+            let key = keys[c.offset]
+            guard var value = item.list[key] else {
                 continue
             }
-            content += "\"\(c.element.key)\" = \"\(c.element.value)\";\n"
+            guard value.characters.count > 0 else {
+                continue
+            }
+            guard key.specialEqual(source: value) else {
+                continue
+            }
+            guard !value.containChineseChar() else {
+                continue
+            }
+            value = value.replacingOccurrences(of: "\"", with: "'")
+            var append = "\"\(key)\" = \"\(value)\";\n"
+            append = append.replacingOccurrences(of: "\r", with: "")
+            content += append
         }
         content = content.replacingOccurrences(of: "\\", with: "\\\\")
         try? content.write(toFile: "\(path)/Localizable.strings", atomically: true, encoding: String.Encoding.utf8)
@@ -72,11 +81,23 @@ class LanguageValueController: NSViewController, NSTableViewDataSource, NSTableV
             cell.backgroundColor = NSColor.darkGray
             return key
         } else if (column.title == "Value") {
-            let value = self.item?.list[key]
+            var value = findValue(key: key)
             if value == nil {
+//                print("🆘查找不到的 key:->\(key)\n")
                 verifyCount += 1
             }
-            cell.backgroundColor = value != nil ? NSColor.green : NSColor.red
+//            if value!.containChineseChar() {
+//                value = nil
+//            }
+            if !key.specialEqual(source: value) {
+                cell.backgroundColor = NSColor.red
+            } else {
+                if let v = value, v.characters.count > 0 {
+                    cell.backgroundColor = NSColor.green
+                } else {
+                    cell.backgroundColor = NSColor.yellow
+                }
+            }
             return value
         }
         return nil
@@ -89,6 +110,34 @@ class LanguageValueController: NSViewController, NSTableViewDataSource, NSTableV
         let key = keys[row]
         item?.list[key] = value
         tableView.reloadData()
+    }
+    
+    override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
+        guard let controller = segue.destinationController as? LocalLanguagesViewController else {
+            return
+        }
+        controller.normalLanguage = item?.name.replacingOccurrences(of: "\r", with: "")
+        controller.didClickLanguageCompletionHandle = { language in
+            guard let item = self.item else {
+                return
+            }
+            LanguageSourceKit.saveLanguage(item: [item], language: language)
+        }
+    }
+    
+    func findValue(key:String) -> String? {
+        if let value = self.item?.list[key] {
+            return value
+        }
+        var fixKey = key.trimmingCharacters(in: CharacterSet.whitespaces)
+        if let value = self.item?.list[fixKey] {
+            return value
+        }
+        fixKey = fixKey.replacingOccurrences(of: "\\\"", with: "\\\"\"")
+        if let value = self.item?.list[fixKey] {
+            return value
+        }
+        return nil
     }
 
 }

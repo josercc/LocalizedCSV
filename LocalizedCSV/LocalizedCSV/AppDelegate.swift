@@ -15,6 +15,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         // Insert code here to initialize your application
+        let content = "这是包含中文英语字母数字的字符串adsasddsadsa123123123312"
+        print(content.containChineseChar())
+        
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
@@ -98,6 +101,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         FilndUnLocalizeStringKit().findAll()
     }
     
+    func applicationShouldHandleReopen(_ sender: NSApplication, hasVisibleWindows flag: Bool) -> Bool {
+        for window in sender.windows {
+            window.makeKeyAndOrderFront(nil)
+        }
+        return true
+    }
     
 }
 

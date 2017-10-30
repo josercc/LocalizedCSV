@@ -19,7 +19,7 @@ class FilndUnLocalizeStringKit {
         }
         let files = FileKit.findAllFiles(path: directoryPath, allowFileTypes: ["h","m"])
         for file in files {
-            print("->\(file)")
+//            print("->\(file)")
             guard let content = try? String(contentsOfFile: file) else {
                 continue
             }
@@ -36,13 +36,13 @@ class FilndUnLocalizeStringKit {
 
 /// [UIAlertController alertControllerWithTitle:@""  message:@"" preferredStyle:alertControllerStyle]
 func findUIAlertController(content:String) -> [String] {
-    let result = findPlaceholder(source: ["[","UIAlertController","alertControllerWithTitle",":","{p}","message",":","{p}","preferredStyle"], content:content)
+    let result = findPlaceholder(source: ["[","UIAlertController","alertControllerWithTitle",":","{R}","message",":","{R}","preferredStyle"], content:content)
     return result.0
 }
 
 /*
  栗子 [UIAlertController alertControllerWithTitle:@"title"  message:@"message" preferredStyle:alertControllerStyle]
- source: ["[","UIAlertController","alertControllerWithTitle",":","{p}","message",":","{P}","preferredStyle"]
+ source: ["[","UIAlertController","alertControllerWithTitle",":","{R}","message",":","{R}","preferredStyle"]
  */
 
 func findPlaceholder(source:[String], content:String) -> ([String], String) {
@@ -72,7 +72,7 @@ func findPlaceholder(source:[String], content:String) -> ([String], String) {
             continue
         }
         ///如果是占位符 就开始查找字符串
-        if item.element == "{p}" {
+        if item.element == "{R}" {
             /// 查询是否还存在下一个占位符 如果不存在 代表参数错误返回
             guard source.count > item.offset + 1 else {
                 break

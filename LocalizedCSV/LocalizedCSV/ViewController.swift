@@ -17,18 +17,32 @@ class ViewController: NSViewController, NSTableViewDataSource, NSTableViewDelega
             self.tableView.doubleAction = #selector(self.pushDetail)
         }
     }
+    var canReadloadData = false
     @IBOutlet weak var SVGTextFiled: NSTextField!
     @IBOutlet weak var localizeStringTextFiled: NSTextField!
     let csvParse:CSVParseKit = CSVParseKit.shareManager()
     override func viewDidLoad() {
         super.viewDidLoad()
+
     }
     @IBAction func readSVGFile(_ sender: NSButton) {
         self.SVGTextFiled.stringValue = getFile(fileType: "csv")
         parse(parse: { 
-            try? self.csvParse.parse(file: self.SVGTextFiled.stringValue)
-        }) { 
-            self.tableView.reloadData()
+            do {
+                try self.csvParse.parse(file: self.SVGTextFiled.stringValue)
+                self.canReadloadData = true
+            } catch {
+                self.canReadloadData = false
+                DispatchQueue.main.sync {
+                    let alert = NSAlert()
+                    alert.messageText = "CSV 文件错误"
+                    alert.runModal()
+                }
+            }
+        }) {
+            if self.canReadloadData {
+                self.tableView.reloadData()
+            }
         }
     }
     
@@ -36,7 +50,6 @@ class ViewController: NSViewController, NSTableViewDataSource, NSTableViewDelega
         DispatchQueue.global().async {
             parse()
             DispatchQueue.main.sync {
-                self.tableView.reloadData()
                 completion()
             }
         }

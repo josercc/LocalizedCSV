@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5D005DF11FA2D9650085E94C /* TranslateStringViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D005DF01FA2D9650085E94C /* TranslateStringViewController.swift */; };
+		5D2D67C01F484F95002761E4 /* StringKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D2D67BF1F484F95002761E4 /* StringKit.swift */; };
 		5D499EE11F459ACA000F24B1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D499EE01F459ACA000F24B1 /* AppDelegate.swift */; };
 		5D499EE31F459ACA000F24B1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D499EE21F459ACA000F24B1 /* ViewController.swift */; };
 		5D499EE51F459ACA000F24B1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5D499EE41F459ACA000F24B1 /* Assets.xcassets */; };
@@ -18,12 +20,17 @@
 		5D499EF81F47D611000F24B1 /* FindLocalizeStringController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D499EF71F47D611000F24B1 /* FindLocalizeStringController.swift */; };
 		5D499EFA1F4822C2000F24B1 /* PannelKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D499EF91F4822C2000F24B1 /* PannelKit.swift */; };
 		5D499EFC1F48252D000F24B1 /* FilndUnLocalizeStringKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D499EFB1F48252D000F24B1 /* FilndUnLocalizeStringKit.swift */; };
+		5D505E8C1F5E9EAC00016766 /* LocalLanguagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D505E8B1F5E9EAC00016766 /* LocalLanguagesViewController.swift */; };
+		5D505E8E1F5E9EE400016766 /* LanguageSourceKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D505E8D1F5E9EE400016766 /* LanguageSourceKit.swift */; };
 		5D84B93A1F4A851E009EA4A2 /* FileKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D84B9391F4A851E009EA4A2 /* FileKit.swift */; };
+		5DE617E51FA1CA85000A6370 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DE617E41FA1CA85000A6370 /* SettingViewController.swift */; };
 		9B82C449E090FFB5A46E370C /* Pods_LocalizedCSV.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04F0EA87C987B058659C431A /* Pods_LocalizedCSV.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		04F0EA87C987B058659C431A /* Pods_LocalizedCSV.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LocalizedCSV.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5D005DF01FA2D9650085E94C /* TranslateStringViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslateStringViewController.swift; sourceTree = "<group>"; };
+		5D2D67BF1F484F95002761E4 /* StringKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringKit.swift; sourceTree = "<group>"; };
 		5D499EDD1F459ACA000F24B1 /* LocalizedCSV.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LocalizedCSV.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5D499EE01F459ACA000F24B1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5D499EE21F459ACA000F24B1 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -37,7 +44,10 @@
 		5D499EF71F47D611000F24B1 /* FindLocalizeStringController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FindLocalizeStringController.swift; sourceTree = "<group>"; };
 		5D499EF91F4822C2000F24B1 /* PannelKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PannelKit.swift; sourceTree = "<group>"; };
 		5D499EFB1F48252D000F24B1 /* FilndUnLocalizeStringKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilndUnLocalizeStringKit.swift; sourceTree = "<group>"; };
+		5D505E8B1F5E9EAC00016766 /* LocalLanguagesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalLanguagesViewController.swift; sourceTree = "<group>"; };
+		5D505E8D1F5E9EE400016766 /* LanguageSourceKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LanguageSourceKit.swift; sourceTree = "<group>"; };
 		5D84B9391F4A851E009EA4A2 /* FileKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileKit.swift; sourceTree = "<group>"; };
+		5DE617E41FA1CA85000A6370 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		78AB411939E0316119BB7FDD /* Pods-LocalizedCSV.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LocalizedCSV.release.xcconfig"; path = "Pods/Target Support Files/Pods-LocalizedCSV/Pods-LocalizedCSV.release.xcconfig"; sourceTree = "<group>"; };
 		9CA2E9213676361ECC6388E9 /* Pods-LocalizedCSV.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LocalizedCSV.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LocalizedCSV/Pods-LocalizedCSV.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -97,6 +107,11 @@
 				5D499EF91F4822C2000F24B1 /* PannelKit.swift */,
 				5D499EFB1F48252D000F24B1 /* FilndUnLocalizeStringKit.swift */,
 				5D84B9391F4A851E009EA4A2 /* FileKit.swift */,
+				5D2D67BF1F484F95002761E4 /* StringKit.swift */,
+				5D505E8B1F5E9EAC00016766 /* LocalLanguagesViewController.swift */,
+				5D505E8D1F5E9EE400016766 /* LanguageSourceKit.swift */,
+				5DE617E41FA1CA85000A6370 /* SettingViewController.swift */,
+				5D005DF01FA2D9650085E94C /* TranslateStringViewController.swift */,
 			);
 			path = LocalizedCSV;
 			sourceTree = "<group>";
@@ -234,11 +249,16 @@
 			files = (
 				5D499EFA1F4822C2000F24B1 /* PannelKit.swift in Sources */,
 				5D499EE31F459ACA000F24B1 /* ViewController.swift in Sources */,
+				5D505E8C1F5E9EAC00016766 /* LocalLanguagesViewController.swift in Sources */,
+				5D505E8E1F5E9EE400016766 /* LanguageSourceKit.swift in Sources */,
 				5D499EF61F47C8AA000F24B1 /* FindLocalizeStringKit.swift in Sources */,
+				5DE617E51FA1CA85000A6370 /* SettingViewController.swift in Sources */,
 				5D499EF21F469939000F24B1 /* LanguageValueController.swift in Sources */,
+				5D2D67C01F484F95002761E4 /* StringKit.swift in Sources */,
 				5D499EF81F47D611000F24B1 /* FindLocalizeStringController.swift in Sources */,
 				5D499EFC1F48252D000F24B1 /* FilndUnLocalizeStringKit.swift in Sources */,
 				5D499EF41F46AD5E000F24B1 /* LocalizeStringKit.swift in Sources */,
+				5D005DF11FA2D9650085E94C /* TranslateStringViewController.swift in Sources */,
 				5D499EF01F467E75000F24B1 /* CSVParseKit.swift in Sources */,
 				5D84B93A1F4A851E009EA4A2 /* FileKit.swift in Sources */,
 				5D499EE11F459ACA000F24B1 /* AppDelegate.swift in Sources */,

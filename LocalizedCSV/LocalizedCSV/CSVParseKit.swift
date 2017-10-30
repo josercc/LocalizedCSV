@@ -47,16 +47,16 @@ class CSVParseKit {
             throw CSVParseKitError.fileError
         }
         let csvContent = try String(contentsOfFile: file)
-        print(csvContent)
-        let csvLines = csvContent.components(separatedBy: "\n")
+        let csvLines = csvContent.components(separatedBy: "\r\n")
         guard csvLines.count > 0 else {
             throw CSVParseKitError.fileError
         }
         /// 解析支持的语言
         let supportlanguages = csvLines[0].components(separatedBy: ",")
         for language in supportlanguages {
+            let l = formatterValue(value: language)
             let item = CSVItem()
-            item.name = language
+            item.name = l
             _tempItems.append(item)
         }
         
@@ -69,15 +69,37 @@ class CSVParseKit {
                 continue
             }
             let values = c.element.components(separatedBy: ",")
-            guard let value0 = values.first?.replacingOccurrences(of: "{R}", with: ",") else {
+            if values.count != supportlanguages.count {
+                print("❌\(c.element)错误,line->\(c.offset)")
+                throw CSVParseKitError.fileError
+            }
+            guard var value0 = values.first else {
                 continue
             }
+            value0 = formatterValue(value: value0)
             for itemC in _tempItems.enumerated() {
-                itemC.element.list[value0] = values[itemC.offset].replacingOccurrences(of: "{R}", with: ",")
+                guard values.count > itemC.offset else {
+                    continue
+                }
+                itemC.element.list[value0] = formatterValue(value: values[itemC.offset])
             }
         }
         
     }
+    
+    func formatterValue(value:String) -> String {
+        var v = value
+        let formatters = [
+            "{R}":",",
+            "\r":"",
+            "\n":"",
+        ]
+        formatters.forEach { (key,value) in
+            v = v.replacingOccurrences(of: key, with: value)
+        }
+        return v
+    }
+    
 }
 
 class CSVItem {

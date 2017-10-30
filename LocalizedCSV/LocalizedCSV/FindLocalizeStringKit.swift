@@ -23,6 +23,7 @@ class FindLocalizeStringKit {
     }
     
     func findAllLocalizeString(path:String) {
+        list.removeAll()
         let files = findAllFiles(path: path)
         for file in files {
             print("➡️\(file)\n")
@@ -69,7 +70,7 @@ class FindLocalizeStringKit {
     // NSLocalizedString(@"", @"")
    private func findAllLocalizeString(string:String) -> [String:String] {
         var localizeString:[String:String] = [:]
-        guard let range1 = string.range(of: "NSLocalizedString(") else {
+        guard let range1 = string.range(of: "GBLocalizedString(") else {
             return localizeString
         }
         let subString = string.substring(from: string.index(range1.upperBound, offsetBy: 0))
