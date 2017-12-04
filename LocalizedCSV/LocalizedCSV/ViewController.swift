@@ -57,11 +57,15 @@ class ViewController: NSViewController, NSTableViewDataSource, NSTableViewDelega
     
     @IBAction func readLocalizeStringFile(_ sender: NSButton) {
         self.localizeStringTextFiled.stringValue = getFile(fileType: "strings")
-        parse(parse: { 
+//        parse(parse: {
             try? LocalizeStringKit.shareManager().parse(filePath: self.localizeStringTextFiled.stringValue)
-        }) { 
-            
-        }
+//        }) {
+			var stringList = self.localizeStringTextFiled.stringValue.components(separatedBy: "/")
+			stringList.removeLast()
+			stringList.removeLast()
+			SettingModel.shareSettingModel().projectRootPath = stringList.joined(separator: "/")
+			print(SettingModel.shareSettingModel().projectRootPath!)
+//        }
     }
     
     func getFile(fileType:String) -> String {

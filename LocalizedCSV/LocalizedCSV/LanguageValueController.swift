@@ -39,32 +39,42 @@ class LanguageValueController: NSViewController, NSTableViewDataSource, NSTableV
         guard let path = openPannel.urls.first?.absoluteString.replacingOccurrences(of: "file://", with: "") else {
             return
         }
-        var content = ""
-        guard let item = self.item else {
-            return
-        }
-        for c in keys.enumerated() {
-            let key = keys[c.offset]
-            guard var value = item.list[key] else {
-                continue
-            }
-            guard value.characters.count > 0 else {
-                continue
-            }
-            guard key.specialEqual(source: value) else {
-                continue
-            }
-            guard !value.containChineseChar() else {
-                continue
-            }
-            value = value.replacingOccurrences(of: "\"", with: "'")
-            var append = "\"\(key)\" = \"\(value)\";\n"
-            append = append.replacingOccurrences(of: "\r", with: "")
-            content += append
-        }
-        content = content.replacingOccurrences(of: "\\", with: "\\\\")
-        try? content.write(toFile: "\(path)/Localizable.strings", atomically: true, encoding: String.Encoding.utf8)
+		saveInPath(path: path)
     }
+
+	func saveInPath(path:String) {
+		var content = ""
+		guard let item = self.item else {
+			return
+		}
+		for c in keys.enumerated() {
+			let key = keys[c.offset]
+			guard var value = item.list[key] else {
+				continue
+			}
+			guard value.characters.count > 0 else {
+				continue
+			}
+			guard key.specialEqual(source: value) else {
+				continue
+			}
+			guard !value.containChineseChar() else {
+				continue
+			}
+			value = value.replacingOccurrences(of: "\"", with: "'")
+			var append = "\"\(key)\" = \"\(value)\";\n"
+			append = append.replacingOccurrences(of: "\r", with: "")
+			content += append
+		}
+		content = content.replacingOccurrences(of: "\\", with: "\\\\")
+		do {
+			try content.write(toFile: "\(path)/Localizable.strings", atomically: true, encoding: String.Encoding.utf8)
+		} catch let error {
+			let alert = NSAlert()
+			alert.messageText = "找不到\(error.localizedDescription)，一键保存错误!"
+			alert.runModal()
+		}
+	}
     
     public func numberOfRows(in tableView: NSTableView) -> Int {
         verifyCount = 0
@@ -139,5 +149,23 @@ class LanguageValueController: NSViewController, NSTableViewDataSource, NSTableV
         }
         return nil
     }
+
+	@IBAction func quickSave(_ sender:NSButton) {
+		guard let rootPath = SettingModel.shareSettingModel().projectRootPath else {
+			let alert = NSAlert()
+			alert.messageText = "找不到工程路径，一键保存错误!"
+			alert.runModal()
+			return
+		}
+		guard let enCode = SettingModel.shareSettingModel().projectLanguageCode[self.item!.name] else {
+			let alert = NSAlert()
+			alert.messageText = "找不到对应简码，一键保存错误!"
+			alert.runModal()
+			return
+		}
+		let savePath = "\(rootPath)/\(enCode).lproj"
+		saveInPath(path: savePath)
+
+	}
 
 }
