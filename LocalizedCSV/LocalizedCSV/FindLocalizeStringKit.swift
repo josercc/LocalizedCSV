@@ -16,7 +16,7 @@ class FindLocalizeStringKit {
     var list:[String:String] = [:]
     
     var completionLog:((_ name:String) -> Void)?
-    var updateCompletion:((_ key:String) -> Void)?
+    var updateCompletion:((_ key:String, _ value:String) -> Void)?
     
     static func shareManager() -> FindLocalizeStringKit {
         return FindLocalizeStringKitManager.manager
@@ -40,7 +40,7 @@ class FindLocalizeStringKit {
                 list[d.key] = d.value
                 print("✅\(d.key) = \(d.value)")
                 if let updateCompletion = self.updateCompletion {
-                    updateCompletion(d.key)
+                    updateCompletion(d.key, d.value)
                 }
             }
         }
@@ -77,17 +77,15 @@ class FindLocalizeStringKit {
         guard let range2 = subString.range(of: ")") else {
             return localizeString
         }
-        let parseString = subString.substring(to: string.index(range2.lowerBound, offsetBy: 0))
-        let listContent = parseString.components(separatedBy: ",")
+        var parseString = subString.substring(to: string.index(range2.lowerBound, offsetBy: 0))
         var key:String?
         var value:String?
-        for c in listContent.enumerated() {
-            if c.offset == 0 {
-                key = findString(string: c.element).0
-            } else if c.offset == 1 {
-                value = findString(string: c.element).0
-            }
-        }
+        let result = findString(string: parseString)
+        key = result.0
+        parseString = result.1
+        let result1 = findString(string: parseString)
+        value = result1.0
+        parseString = result1.1
         if let k = key {
             localizeString[k] = value ?? key
         }
@@ -98,6 +96,7 @@ class FindLocalizeStringKit {
     }
     
 }
+
 
 
 

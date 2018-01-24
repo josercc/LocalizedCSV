@@ -26,7 +26,7 @@ class FindLocalizeStringController: NSViewController, NSTableViewDataSource {
         findKit.completionLog = {log in
             self.filePathLabel.stringValue = log
         }
-        findKit.updateCompletion = { key in
+        findKit.updateCompletion = { key, value in
             self.keys.append(key)
             self.tableView.reloadData()
             self.countLabel.stringValue = "\(self.keys.count)"
