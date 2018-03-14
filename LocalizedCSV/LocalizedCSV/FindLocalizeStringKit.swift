@@ -68,16 +68,18 @@ class FindLocalizeStringKit {
     }
     
     // NSLocalizedString(@"", @"")
-   private func findAllLocalizeString(string:String) -> [String:String] {
+    
+    private func findAllLocalizeString(string:String) -> [String:String] {
         var localizeString:[String:String] = [:]
         guard let range1 = string.range(of: "GBLocalizedString(") else {
             return localizeString
         }
         let subString = string.substring(from: string.index(range1.upperBound, offsetBy: 0))
-        guard let range2 = subString.range(of: ")") else {
+        let filter = filterBrackets(string: subString)
+        var parseString = filter.result
+        guard let _ = parseString.range(of: "@\"") else {
             return localizeString
         }
-        var parseString = subString.substring(to: string.index(range2.lowerBound, offsetBy: 0))
         var key:String?
         var value:String?
         let result = findString(string: parseString)
@@ -89,14 +91,36 @@ class FindLocalizeStringKit {
         if let k = key {
             localizeString[k] = value ?? key
         }
-        for d in findAllLocalizeString(string: subString.substring(from: subString.index(range2.upperBound, offsetBy: 0))) {
+        for d in findAllLocalizeString(string: filter.findString) {
             localizeString[d.key] = d.value
         }
         return localizeString
     }
-    
 }
 
-
+func filterBrackets(string:String) -> (result:String, findString:String) {
+    var result = ""
+    var isStop = false
+    var findString = string
+    var index = 0
+    while !isStop {
+        let startChar = findString.substring(to: findString.index(findString.startIndex, offsetBy: 1))
+        if startChar == "(" {
+            index += 1
+            result += startChar
+        } else if startChar == ")" {
+            if index != 0   {
+                index -= 1
+                result += startChar
+            } else {
+                isStop = true
+            }
+        } else {
+            result += startChar
+        }
+        findString = findString.substring(from: findString.index(findString.startIndex, offsetBy: 1))
+    }
+    return (result,findString)
+}
 
 
