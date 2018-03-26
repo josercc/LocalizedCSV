@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13196"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13529"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -999,7 +999,7 @@
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                             <tableColumns>
-                                                <tableColumn width="497" minWidth="40" maxWidth="1000" id="bUn-jK-byo">
+                                                <tableColumn identifier="" width="497" minWidth="40" maxWidth="1000" id="bUn-jK-byo">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="已经翻译的语言列表">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -1100,7 +1100,7 @@
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                             <tableColumns>
-                                                <tableColumn width="444" minWidth="40" maxWidth="1000" id="ChD-GI-Gj2">
+                                                <tableColumn identifier="" width="444" minWidth="40" maxWidth="1000" id="ChD-GI-Gj2">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="本国际化语言列表">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -1177,7 +1177,7 @@
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                             <tableColumns>
-                                                <tableColumn width="198" minWidth="40" maxWidth="1000" id="eHx-Sg-BPn">
+                                                <tableColumn identifier="" width="198" minWidth="40" maxWidth="1000" id="eHx-Sg-BPn">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Key">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -1190,7 +1190,7 @@
                                                     </textFieldCell>
                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                 </tableColumn>
-                                                <tableColumn width="316" minWidth="40" maxWidth="1000" id="VpC-EK-vxd">
+                                                <tableColumn identifier="" width="316" minWidth="40" maxWidth="1000" id="VpC-EK-vxd">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Value">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -1225,7 +1225,7 @@
                                 </tableHeaderView>
                             </scrollView>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="XQS-FI-Aa1">
-                                <rect key="frame" x="228" y="3" width="67" height="32"/>
+                                <rect key="frame" x="278" y="3" width="67" height="32"/>
                                 <buttonCell key="cell" type="push" title="保存" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="0io-eM-zr2">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" size="13" name=".PingFangSC-Regular"/>
@@ -1235,14 +1235,13 @@
                                 </connections>
                             </button>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Flx-dJ-Qr5">
-                                <rect key="frame" x="14" y="3" width="147" height="32"/>
-                                <buttonCell key="cell" type="push" title="保存到本地数据库" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="DZO-j6-GeI">
+                                <rect key="frame" x="14" y="3" width="133" height="32"/>
+                                <buttonCell key="cell" type="push" title="导出未翻译字段" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="DZO-j6-GeI">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" size="13" name=".PingFangSC-Regular"/>
                                 </buttonCell>
                                 <connections>
-                                    <action selector="saveToDataBase:" target="szo-uj-fz8" id="4V0-3L-oWM"/>
-                                    <segue destination="leg-kA-bjE" kind="modal" id="GpO-2d-Y7F"/>
+                                    <action selector="exportUnTranslateToFile:" target="szo-uj-fz8" id="3bF-DY-Kn3"/>
                                 </connections>
                             </button>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="gpA-Os-dh1">
@@ -1255,16 +1254,28 @@
                                     <action selector="quickSave:" target="szo-uj-fz8" id="fDJ-Vv-2iw"/>
                                 </connections>
                             </button>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="MZ2-LD-wO1">
+                                <rect key="frame" x="147" y="3" width="107" height="32"/>
+                                <buttonCell key="cell" type="push" title="导出未添加" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Bcb-CH-7LT">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" size="13" name=".PingFangSC-Regular"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="exportUnAddToFile:" target="szo-uj-fz8" id="M5O-X8-MCT"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <constraints>
                             <constraint firstItem="Flx-dJ-Qr5" firstAttribute="centerY" secondItem="XQS-FI-Aa1" secondAttribute="centerY" id="CD9-ou-iwn"/>
+                            <constraint firstItem="MZ2-LD-wO1" firstAttribute="leading" secondItem="Flx-dJ-Qr5" secondAttribute="trailing" constant="12" id="HrG-8l-n2h"/>
                             <constraint firstItem="Flx-dJ-Qr5" firstAttribute="leading" secondItem="nPB-Mt-CQ5" secondAttribute="leading" constant="20" id="O4d-TB-N9A"/>
                             <constraint firstAttribute="trailing" secondItem="MiA-ZK-D66" secondAttribute="trailing" id="XKr-az-2Js"/>
                             <constraint firstItem="MiA-ZK-D66" firstAttribute="leading" secondItem="nPB-Mt-CQ5" secondAttribute="leading" id="YxG-fi-jjR"/>
-                            <constraint firstItem="XQS-FI-Aa1" firstAttribute="centerX" secondItem="nPB-Mt-CQ5" secondAttribute="centerX" id="dnr-aC-U4e"/>
+                            <constraint firstItem="XQS-FI-Aa1" firstAttribute="centerX" secondItem="nPB-Mt-CQ5" secondAttribute="centerX" constant="50" id="dnr-aC-U4e"/>
                             <constraint firstItem="gpA-Os-dh1" firstAttribute="top" secondItem="MiA-ZK-D66" secondAttribute="bottom" constant="9" id="fmQ-F2-6XU"/>
                             <constraint firstAttribute="bottom" secondItem="MiA-ZK-D66" secondAttribute="bottom" constant="40" id="gWe-Jh-mle"/>
                             <constraint firstAttribute="trailing" secondItem="gpA-Os-dh1" secondAttribute="trailing" constant="20" id="gZ8-7a-9Fu"/>
+                            <constraint firstItem="MZ2-LD-wO1" firstAttribute="centerY" secondItem="Flx-dJ-Qr5" secondAttribute="centerY" id="gwI-of-6Bj"/>
                             <constraint firstItem="MiA-ZK-D66" firstAttribute="top" secondItem="nPB-Mt-CQ5" secondAttribute="top" id="gyz-av-cvw"/>
                             <constraint firstAttribute="bottom" secondItem="XQS-FI-Aa1" secondAttribute="bottom" constant="10" id="m7q-lY-RYz"/>
                         </constraints>
@@ -1314,7 +1325,7 @@
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                             <tableColumns>
-                                                <tableColumn width="118" minWidth="40" maxWidth="1000" id="WKP-e1-zP6">
+                                                <tableColumn identifier="" width="118" minWidth="40" maxWidth="1000" id="WKP-e1-zP6">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Key">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -1327,7 +1338,7 @@
                                                     </textFieldCell>
                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                 </tableColumn>
-                                                <tableColumn width="762" minWidth="40" maxWidth="1000" id="0WW-6T-oXy">
+                                                <tableColumn identifier="" width="762" minWidth="40" maxWidth="1000" id="0WW-6T-oXy">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Value">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>

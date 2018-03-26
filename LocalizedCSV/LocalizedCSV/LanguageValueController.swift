@@ -76,6 +76,61 @@ class LanguageValueController: NSViewController, NSTableViewDataSource, NSTableV
 		}
 	}
     
+    @IBAction func exportUnTranslateToFile(_ sender:Any) {
+        var exportString = "";
+        for key in keys {
+            var value = findValue(key: key)
+            if !key.specialEqual(source: value) {
+                exportString += "\(key)\n"
+            } else {
+                if let v = value, v.characters.count > 0 {
+                } else {
+                    exportString += "\(key)\n"
+                }
+            }
+        }
+        let openPannel = NSOpenPanel()
+        openPannel.canChooseFiles = false
+        openPannel.canChooseDirectories = true
+        guard openPannel.runModal() == NSFileHandlingPanelOKButton else {
+            return
+        }
+        guard let path = openPannel.urls.first?.absoluteString.replacingOccurrences(of: "file://", with: "") else {
+            return
+        }
+        let exportPath = "\(path)/\(self.item!.name).txt"
+        try? exportString.write(toFile: exportPath, atomically: true, encoding: String.Encoding.utf8)
+    }
+    
+    @IBAction func exportUnAddToFile(_ sender:Any) {
+        var exportString = "";
+        for key in keys {
+            var value = findValue(key: key)
+            if !key.specialEqual(source: value) {
+                exportString += "\(key)\n"
+            }
+        }
+        guard let path = openADirectory() else {
+            return
+        }
+        let exportPath = "\(path)/unadd.file"
+        try? exportString.write(toFile: exportPath, atomically: true, encoding: String.Encoding.utf8)
+    }
+    
+    
+    func openADirectory() -> String? {
+        let openPannel = NSOpenPanel()
+        openPannel.canChooseFiles = false
+        openPannel.canChooseDirectories = true
+        guard openPannel.runModal() == NSFileHandlingPanelOKButton else {
+            return nil
+        }
+        guard let path = openPannel.urls.first?.absoluteString.replacingOccurrences(of: "file://", with: "") else {
+            return nil
+        }
+        return path
+    }
+    
     public func numberOfRows(in tableView: NSTableView) -> Int {
         verifyCount = 0
         return keys.count
