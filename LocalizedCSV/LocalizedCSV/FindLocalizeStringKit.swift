@@ -15,6 +15,9 @@ struct FindLocalizeStringKitManager {
 class FindLocalizeStringKit {
     var list:[String:String] = [:]
     
+    /* 存在相同key 值不相同的数组列表 */
+    var exitSameKeyList:[String] = []
+    
     var completionLog:((_ name:String) -> Void)?
     var updateCompletion:((_ key:String, _ value:String) -> Void)?
     
@@ -34,9 +37,14 @@ class FindLocalizeStringKit {
                 continue
             }
             for d in findAllLocalizeString(string: content) {
+                /* 如果相同的 key 已经存在 并且值不一样则存起来 */
+                if (list.keys.contains(d.key) && list[d.key] != d.value) {
+                    exitSameKeyList.append(d.key)
+                }
                 guard !list.keys.contains(d.key) else {
                     continue
                 }
+
                 list[d.key] = d.value
                 print("✅\(d.key) = \(d.value)")
                 if let updateCompletion = self.updateCompletion {
