@@ -16,7 +16,7 @@ class FindLocalizeStringKit {
     var list:[String:String] = [:]
     
     /* 存在相同key 值不相同的数组列表 */
-    var exitSameKeyList:[String] = []
+    var exitSameKeyList:[String:[String]] = [:]
     
     var completionLog:((_ name:String) -> Void)?
     var updateCompletion:((_ key:String, _ value:String) -> Void)?
@@ -39,7 +39,12 @@ class FindLocalizeStringKit {
             for d in findAllLocalizeString(string: content) {
                 /* 如果相同的 key 已经存在 并且值不一样则存起来 */
                 if (list.keys.contains(d.key) && list[d.key] != d.value) {
-                    exitSameKeyList.append(d.key)
+                    var exitList:[String] = []
+                    if let tempExitList = exitSameKeyList[d.key] as? [String] {
+                        exitList.append(contentsOf: tempExitList)
+                    }
+                    exitList.append(file)
+                    exitSameKeyList[d.key] = exitList
                 }
                 guard !list.keys.contains(d.key) else {
                     continue
