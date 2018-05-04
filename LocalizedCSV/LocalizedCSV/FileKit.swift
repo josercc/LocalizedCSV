@@ -6,7 +6,7 @@
 //  Copyright © 2017年 张行. All rights reserved.
 //
 
-import Foundation
+import AppKit
 
 class FileKit {
     
@@ -56,5 +56,22 @@ class FileKit {
         }
         
         return files
+    }
+    
+    
+    /// 获取目录
+    ///
+    /// - Returns: 目录的地址
+    static func getDirectory() -> String? {
+        let openPannel = NSOpenPanel()
+        openPannel.canChooseFiles = false
+        openPannel.canChooseDirectories = true
+        guard openPannel.runModal() == NSFileHandlingPanelOKButton else {
+            return nil;
+        }
+        guard let path = openPannel.urls.first?.absoluteString.replacingOccurrences(of: "file://", with: "") else {
+            return nil;
+        }
+        return path;
     }
 }

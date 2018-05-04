@@ -105,7 +105,7 @@ class LanguageValueController: NSViewController, NSTableViewDataSource, NSTableV
     @IBAction func exportUnAddToFile(_ sender:Any) {
         var exportString = "";
         for key in keys {
-            var value = findValue(key: key)
+            var value = findValue(key: formatterKey(key: key))
             if !key.specialEqual(source: value) {
                 exportString += "\(key)\n"
             }
@@ -137,7 +137,7 @@ class LanguageValueController: NSViewController, NSTableViewDataSource, NSTableV
     }
     
     public func tableView(_ tableView: NSTableView, objectValueFor tableColumn: NSTableColumn?, row: Int) -> Any? {
-        let key = keys[row]
+        var key = formatterKey(key: keys[row])
         guard let column = tableColumn, let cell = column.dataCell as? NSTextFieldCell else {
             return nil
         }
@@ -222,5 +222,9 @@ class LanguageValueController: NSViewController, NSTableViewDataSource, NSTableV
 		saveInPath(path: savePath)
 
 	}
+    
+    func formatterKey(key:String) -> String {
+        return key.replacingOccurrences(of: "\u{08}", with: "")
+    }
 
 }

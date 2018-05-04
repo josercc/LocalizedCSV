@@ -51,9 +51,8 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                             </scrollView>
-                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="r0q-iJ-wW3">
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="r0q-iJ-wW3">
                                 <rect key="frame" x="9" y="82" width="67" height="32"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="push" title="保存" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="qFI-5m-3Cv">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" size="13" name=".PingFangSC-Regular"/>
@@ -62,11 +61,38 @@
                                     <action selector="save:" target="2MZ-1w-cLK" id="Bu1-yL-ClG"/>
                                 </connections>
                             </button>
+                            <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="G8u-VF-iF4">
+                                <rect key="frame" x="9" y="53" width="368" height="22"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="22" id="bJj-Qb-hiJ"/>
+                                </constraints>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="设置查询字符串宏默认为NSLocalizedString" drawsBackground="YES" id="mG7-gY-UQw">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="MZi-Z5-Enm">
+                                <rect key="frame" x="381" y="47" width="67" height="32"/>
+                                <buttonCell key="cell" type="push" title="设置" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="yrd-k0-140">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" size="13" name=".PingFangSC-Regular"/>
+                                </buttonCell>
+                            </button>
                         </subviews>
                         <constraints>
+                            <constraint firstItem="MZi-Z5-Enm" firstAttribute="trailing" secondItem="P5w-qh-Anp" secondAttribute="trailing" id="3ki-9c-R85"/>
                             <constraint firstAttribute="trailing" secondItem="jYg-Md-lsI" secondAttribute="trailing" constant="8" id="APf-7N-U7Z"/>
                             <constraint firstItem="jYg-Md-lsI" firstAttribute="leading" secondItem="NVG-AN-y6c" secondAttribute="leading" constant="8" id="BbO-mJ-sZo"/>
+                            <constraint firstItem="G8u-VF-iF4" firstAttribute="leading" secondItem="P5w-qh-Anp" secondAttribute="leading" id="D39-X8-BxJ"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="VTK-ih-y9s" secondAttribute="trailing" constant="20" symbolic="YES" id="LMX-aQ-KEp"/>
+                            <constraint firstItem="r0q-iJ-wW3" firstAttribute="leading" secondItem="NVG-AN-y6c" secondAttribute="leading" constant="15" id="Lfy-oY-8LA"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="r0q-iJ-wW3" secondAttribute="trailing" constant="20" symbolic="YES" id="NBi-er-Rzb"/>
+                            <constraint firstItem="G8u-VF-iF4" firstAttribute="top" secondItem="r0q-iJ-wW3" secondAttribute="bottom" constant="14" id="Omk-b5-EVC"/>
+                            <constraint firstItem="r0q-iJ-wW3" firstAttribute="top" secondItem="jYg-Md-lsI" secondAttribute="bottom" constant="20" symbolic="YES" id="PtR-aH-Tlz"/>
                             <constraint firstItem="VTK-ih-y9s" firstAttribute="leading" secondItem="NVG-AN-y6c" secondAttribute="leading" constant="8" id="XRE-nu-rvM"/>
+                            <constraint firstItem="MZi-Z5-Enm" firstAttribute="top" secondItem="G8u-VF-iF4" secondAttribute="top" id="YEH-Hm-CLy"/>
+                            <constraint firstItem="MZi-Z5-Enm" firstAttribute="leading" secondItem="G8u-VF-iF4" secondAttribute="trailing" constant="10" id="w3t-oi-yeH"/>
                             <constraint firstItem="VTK-ih-y9s" firstAttribute="top" secondItem="NVG-AN-y6c" secondAttribute="top" constant="8" id="wMG-zP-t18"/>
                             <constraint firstItem="jYg-Md-lsI" firstAttribute="top" secondItem="VTK-ih-y9s" secondAttribute="bottom" constant="8" id="z6G-pR-NCS"/>
                         </constraints>
@@ -191,12 +217,6 @@
                                         <menuItem title="Print…" keyEquivalent="p" id="aTl-1u-JFS">
                                             <connections>
                                                 <action selector="print:" target="Ady-hI-5gd" id="qaZ-4w-aoO"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem title="导出未翻译到CSV" keyEquivalent="s" id="nzJ-5m-kCs">
-                                            <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
-                                            <connections>
-                                                <action selector="exportCSV:" target="Voe-Tx-rLC" id="a90-dT-4vo"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem title="读取工程NSLocalizeString方法字符串" keyEquivalent="r" id="jgL-It-rE8">
