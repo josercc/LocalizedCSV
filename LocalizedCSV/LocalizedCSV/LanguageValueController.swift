@@ -76,6 +76,27 @@ class LanguageValueController: NSViewController, NSTableViewDataSource, NSTableV
 		}
 	}
     
+    @IBAction func exportUnUsed(_ sender: Any) {
+        var unused:String = ""
+        for name in self.item!.list.keys {
+            if !keys.contains(name) {
+               unused += "\(name)\n"
+            }
+        }
+        let openPannel = NSOpenPanel()
+        openPannel.canChooseFiles = false
+        openPannel.canChooseDirectories = true
+        guard openPannel.runModal() == NSFileHandlingPanelOKButton else {
+            return
+        }
+        guard let path = openPannel.urls.first?.absoluteString.replacingOccurrences(of: "file://", with: "") else {
+            return
+        }
+        let exportPath = "\(path)/unused.txt"
+        try? unused.write(toFile: exportPath, atomically: true, encoding: String.Encoding.utf8)
+    }
+    
+    
     @IBAction func exportUnTranslateToFile(_ sender:Any) {
         var exportString = "";
         for key in keys {

@@ -1181,17 +1181,17 @@
             <objects>
                 <viewController storyboardIdentifier="LanguageValueController" id="szo-uj-fz8" customClass="LanguageValueController" customModule="LocalizedCSV" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="nPB-Mt-CQ5">
-                        <rect key="frame" x="0.0" y="0.0" width="522" height="300"/>
+                        <rect key="frame" x="0.0" y="0.0" width="809" height="300"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <scrollView wantsLayer="YES" autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MiA-ZK-D66">
-                                <rect key="frame" x="0.0" y="40" width="522" height="260"/>
+                                <rect key="frame" x="0.0" y="40" width="809" height="260"/>
                                 <clipView key="contentView" id="8zZ-1y-59n">
-                                    <rect key="frame" x="1" y="0.0" width="520" height="259"/>
+                                    <rect key="frame" x="1" y="0.0" width="807" height="259"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" headerView="iMd-yI-p2d" id="XbO-V3-DGo">
-                                            <rect key="frame" x="0.0" y="0.0" width="520" height="236"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="807" height="236"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <size key="intercellSpacing" width="3" height="2"/>
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -1210,7 +1210,7 @@
                                                     </textFieldCell>
                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                 </tableColumn>
-                                                <tableColumn identifier="" width="316" minWidth="40" maxWidth="1000" id="VpC-EK-vxd">
+                                                <tableColumn identifier="" width="603" minWidth="40" maxWidth="1000" id="VpC-EK-vxd">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" title="Value">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -1240,12 +1240,12 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                                 <tableHeaderView key="headerView" id="iMd-yI-p2d">
-                                    <rect key="frame" x="0.0" y="0.0" width="520" height="23"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="807" height="23"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableHeaderView>
                             </scrollView>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="XQS-FI-Aa1">
-                                <rect key="frame" x="278" y="3" width="67" height="32"/>
+                                <rect key="frame" x="421" y="3" width="67" height="32"/>
                                 <buttonCell key="cell" type="push" title="保存" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="0io-eM-zr2">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" size="13" name=".PingFangSC-Regular"/>
@@ -1265,7 +1265,7 @@
                                 </connections>
                             </button>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="gpA-Os-dh1">
-                                <rect key="frame" x="414" y="3" width="94" height="32"/>
+                                <rect key="frame" x="701" y="3" width="94" height="32"/>
                                 <buttonCell key="cell" type="push" title="一键保存" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="2pU-bN-cD5">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" size="13" name=".PingFangSC-Regular"/>
@@ -1284,6 +1284,16 @@
                                     <action selector="exportUnAddToFile:" target="szo-uj-fz8" id="M5O-X8-MCT"/>
                                 </connections>
                             </button>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="6rn-IA-ZS7">
+                                <rect key="frame" x="256" y="3" width="107" height="32"/>
+                                <buttonCell key="cell" type="push" title="导出未使用" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="pHT-jp-bZc">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" size="13" name=".PingFangSC-Regular"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="exportUnUsed:" target="szo-uj-fz8" id="jZX-BQ-cco"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <constraints>
                             <constraint firstItem="Flx-dJ-Qr5" firstAttribute="centerY" secondItem="XQS-FI-Aa1" secondAttribute="centerY" id="CD9-ou-iwn"/>
@@ -1295,9 +1305,11 @@
                             <constraint firstItem="gpA-Os-dh1" firstAttribute="top" secondItem="MiA-ZK-D66" secondAttribute="bottom" constant="9" id="fmQ-F2-6XU"/>
                             <constraint firstAttribute="bottom" secondItem="MiA-ZK-D66" secondAttribute="bottom" constant="40" id="gWe-Jh-mle"/>
                             <constraint firstAttribute="trailing" secondItem="gpA-Os-dh1" secondAttribute="trailing" constant="20" id="gZ8-7a-9Fu"/>
+                            <constraint firstItem="6rn-IA-ZS7" firstAttribute="centerY" secondItem="MZ2-LD-wO1" secondAttribute="centerY" id="gkd-Mu-DdI"/>
                             <constraint firstItem="MZ2-LD-wO1" firstAttribute="centerY" secondItem="Flx-dJ-Qr5" secondAttribute="centerY" id="gwI-of-6Bj"/>
                             <constraint firstItem="MiA-ZK-D66" firstAttribute="top" secondItem="nPB-Mt-CQ5" secondAttribute="top" id="gyz-av-cvw"/>
                             <constraint firstAttribute="bottom" secondItem="XQS-FI-Aa1" secondAttribute="bottom" constant="10" id="m7q-lY-RYz"/>
+                            <constraint firstItem="6rn-IA-ZS7" firstAttribute="leading" secondItem="MZ2-LD-wO1" secondAttribute="trailing" constant="14" id="wHo-Xb-YgZ"/>
                         </constraints>
                     </view>
                     <connections>
@@ -1306,7 +1318,7 @@
                 </viewController>
                 <customObject id="CnK-gA-V9l" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="75" y="1227"/>
+            <point key="canvasLocation" x="218.5" y="1227"/>
         </scene>
         <!--Find Localize String Controller-->
         <scene sceneID="q9g-Pu-6F4">
