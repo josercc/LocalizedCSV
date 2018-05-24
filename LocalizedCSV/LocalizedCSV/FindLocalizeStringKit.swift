@@ -49,8 +49,9 @@ class FindLocalizeStringKit {
                 guard !list.keys.contains(d.key) else {
                     continue
                 }
-
-                list[d.key] = d.value
+                let key = d.key.replacingOccurrences(of: "\u{08}", with: "")
+                let value = d.value.replacingOccurrences(of: "\u{08}", with: "")
+                list[key] = value
                 print("✅\(d.key) = \(d.value)")
                 if let updateCompletion = self.updateCompletion {
                     updateCompletion(d.key, d.value)

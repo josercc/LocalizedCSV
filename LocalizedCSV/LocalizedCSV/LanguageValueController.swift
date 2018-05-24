@@ -22,9 +22,9 @@ class LanguageValueController: NSViewController, NSTableViewDataSource, NSTableV
         guard let item = self.item else {
             return
         }
-        for c in item.list.enumerated() {
-            print("->>:\(c.element.key)\n->>:\(c.element.value)\n\n")
-        }
+//        for c in item.list.enumerated() {
+//            print("->>:\(c.element.key)\n->>:\(c.element.value)\n\n")
+//        }
         keys.append(contentsOf: LocalizeStringKit.shareManager().localizeDictionary.keys)
         self.tableView.reloadData()
     }
@@ -98,14 +98,16 @@ class LanguageValueController: NSViewController, NSTableViewDataSource, NSTableV
     
     
     @IBAction func exportUnTranslateToFile(_ sender:Any) {
+        
         var exportString = "";
         for key in keys {
-            var value = findValue(key: key)
+            var value = findValue(key: key, list: nil)
             if !key.specialEqual(source: value) {
                 exportString += "\(key)\n"
             } else {
                 if let v = value, v.characters.count > 0 {
                 } else {
+                    
                     exportString += "\(key)\n"
                 }
             }
@@ -124,13 +126,25 @@ class LanguageValueController: NSViewController, NSTableViewDataSource, NSTableV
     }
     
     @IBAction func exportUnAddToFile(_ sender:Any) {
+        let list = FindLocalizeStringKit.shareManager().list
+        guard list.count > 0 else {
+            let alert = NSAlert()
+            alert.messageText = "导出失败 请先提取一次工程的国际化 cmd+optional+R";
+            alert.runModal()
+            return
+        }
         var exportString = "";
+        var keyString = ""
+        var valueString = ""
         for key in keys {
-            var value = findValue(key: formatterKey(key: key))
+            var value = findValue(key: formatterKey(key: key), list: nil)
             if !key.specialEqual(source: value) {
-                exportString += "\(key)\n"
+                let enValue = list[key]
+                keyString += "\(key)\n"
+                valueString += "\(enValue ?? "")\n"
             }
         }
+        exportString = "\(keyString) \n\n\n\n \(valueString)"
         guard let path = openADirectory() else {
             return
         }
@@ -163,18 +177,18 @@ class LanguageValueController: NSViewController, NSTableViewDataSource, NSTableV
             return nil
         }
         cell.drawsBackground = true
+        let isEn = self.item!.name == "母文本English"
+        var value = findValue(key: key, list: isEn ? FindLocalizeStringKit.shareManager().list : nil)
         if column.title == "Key" {
             cell.backgroundColor = NSColor.darkGray
+            if isEn && key != value! {
+                cell.backgroundColor = NSColor.blue
+            }
             return key
         } else if (column.title == "Value") {
-            var value = findValue(key: key)
             if value == nil {
-//                print("🆘查找不到的 key:->\(key)\n")
                 verifyCount += 1
             }
-//            if value!.containChineseChar() {
-//                value = nil
-//            }
             if !key.specialEqual(source: value) {
                 cell.backgroundColor = NSColor.red
             } else {
@@ -184,8 +198,12 @@ class LanguageValueController: NSViewController, NSTableViewDataSource, NSTableV
                     cell.backgroundColor = NSColor.yellow
                 }
             }
+            if isEn && key != value! {
+                cell.backgroundColor = NSColor.blue
+            }
             return value
         }
+        
         return nil
     }
     
@@ -211,19 +229,37 @@ class LanguageValueController: NSViewController, NSTableViewDataSource, NSTableV
         }
     }
     
-    func findValue(key:String) -> String? {
-        if let value = self.item?.list[key] {
-            return value
+    func findValue(key:String, list:[String:String]?) -> String? {
+        var _list = list ?? self.item?.list
+        var _value:String?
+        findKeyValue(key: key, list: _list!) { (value, index, fixKey) -> String? in
+            if let _ = value {
+                _value = value!
+                return nil
+            }
+            if index == 0 {
+                return fixKey.trimmingCharacters(in: CharacterSet.whitespaces)
+            } else if index == 1 {
+                return fixKey.replacingOccurrences(of: "\\\"", with: "\\\"\"")
+            } else if index == 2 {
+                return fixKey.replacingOccurrences(of: "\u{08}", with: "")
+            }
+            return nil
         }
-        var fixKey = key.trimmingCharacters(in: CharacterSet.whitespaces)
-        if let value = self.item?.list[fixKey] {
-            return value
+        return _value;
+    }
+    
+    func findKeyValue(key:String, list:[String:String], completion:((_ value:String?, _ index:Int, _ key:String) -> String?)) {
+        var isExitKey:String? = key
+        var index = 0
+        while true {
+            guard let fixKey = isExitKey else {
+                break
+            }
+            let value = list[fixKey]
+            isExitKey = completion(value, index, fixKey)
+            index += 1;
         }
-        fixKey = fixKey.replacingOccurrences(of: "\\\"", with: "\\\"\"")
-        if let value = self.item?.list[fixKey] {
-            return value
-        }
-        return nil
     }
 
 	@IBAction func quickSave(_ sender:NSButton) {
