@@ -101,11 +101,11 @@ class LanguageValueController: NSViewController, NSTableViewDataSource, NSTableV
         
         var exportString = "";
         for key in keys {
-            var value = findValue(key: key, list: nil)
+            let value = findValue(key: key, list: nil)
             if !key.specialEqual(source: value) {
                 exportString += "\(key)\n"
             } else {
-                if let v = value, v.characters.count > 0 {
+                if let v = value, v.count > 0 {
                 } else {
                     
                     exportString += "\(key)\n"
@@ -126,25 +126,42 @@ class LanguageValueController: NSViewController, NSTableViewDataSource, NSTableV
     }
     
     @IBAction func exportUnAddToFile(_ sender:Any) {
+        /* 获取全部的多语言配置列表 */
         let list = FindLocalizeStringKit.shareManager().list
         guard list.count > 0 else {
+            /* 如果不存在就需要提取国际化 */
             let alert = NSAlert()
             alert.messageText = "导出失败 请先提取一次工程的国际化 cmd+optional+R";
             alert.runModal()
             return
         }
+        /* 需要写入的文件字符串 */
         var exportString = "";
+        /* 需要的 Key 字段 */
         var keyString = ""
+        /* 需要的翻译的 Value 的字段 */
         var valueString = ""
+        
         for key in keys {
-            var value = findValue(key: formatterKey(key: key), list: nil)
+            let value = findValue(key: formatterKey(key: key), list: nil)
             if !key.specialEqual(source: value) {
+                let similarKeys = matchSimilarKeys(key: key)
                 let enValue = list[key]
-                keyString += "\(key)\n"
+                if similarKeys.count > 0 {
+                    keyString += "\(key)"
+                    for similarKeyKid in similarKeys {
+                        keyString += " 相似的Key: \(similarKeyKid.similarKey)(相似度:\(similarKeyKid.proportion * 100)%)"
+                    }
+                    keyString += "\n"
+                } else {
+                    keyString += "\(key)\n"
+                }
                 valueString += "\(enValue ?? "")\n"
+                
             }
+            
         }
-        exportString = "\(keyString) \n\n\n\n \(valueString)"
+        exportString = "\(keyString) \n\n\n\n\(valueString)"
         guard let path = openADirectory() else {
             return
         }
@@ -152,6 +169,40 @@ class LanguageValueController: NSViewController, NSTableViewDataSource, NSTableV
         try? exportString.write(toFile: exportPath, atomically: true, encoding: String.Encoding.utf8)
     }
     
+    
+    /// 查找相似的 Key 如果存在可能之前的翻译可能有用
+    ///
+    /// - Parameter key: 需要查找的 Key
+    /// - Returns:  相似 Key 的元祖数组 similarKey: 相似的 Key 字段 proportion: 相似度占比
+    func matchSimilarKeys(key:String) -> [(similarKey:String, proportion:Float)] {
+        var similarKeys:[(similarKey:String, proportion:Float)] = []
+        /* 遍历已经翻译的 Key */
+        for localizetionKey in keys {
+            /* 查找的 Key和遍历的全部变成小写 */
+            let lowercaseKey = key.lowercased()
+            let lowercaseLocalizetionKey = localizetionKey.lowercased()
+            /* 权重 */
+            var weight = 0
+            for keyKid in lowercaseKey.enumerated() {
+                for localizetionKeyKid in lowercaseLocalizetionKey.enumerated() {
+                    /* 如果索引一样 并且字符一样 那样权重+1 */
+                    if keyKid.offset == localizetionKeyKid.offset && keyKid.element == localizetionKeyKid.element {
+                        weight += 1
+                    }
+                }
+            }
+            /* 查找出来的占比 */
+            var proportion = Float(weight) / Float(localizetionKey.count)
+            /* 如果相似度大于60% 就可以提醒 */
+            if proportion > 0.6  && proportion <= 1.0 {
+                similarKeys.append((localizetionKey,proportion))
+            }
+        }
+        similarKeys.sort { (left, right) -> Bool in
+            return left.proportion > right.proportion
+        }
+        return similarKeys
+    }
     
     func openADirectory() -> String? {
         let openPannel = NSOpenPanel()
