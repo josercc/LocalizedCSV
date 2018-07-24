@@ -177,10 +177,19 @@ class LanguageValueController: NSViewController, NSTableViewDataSource, NSTableV
     func matchSimilarKeys(key:String) -> [(similarKey:String, proportion:Float)] {
         var similarKeys:[(similarKey:String, proportion:Float)] = []
         /* 遍历已经翻译的 Key */
-        for localizetionKey in keys {
+        for localizetionKey in self.item!.list.keys {
+            
             /* 查找的 Key和遍历的全部变成小写 */
             let lowercaseKey = key.lowercased()
             let lowercaseLocalizetionKey = localizetionKey.lowercased()
+            var rangeProportion:Float = 0
+            if lowercaseLocalizetionKey.range(of: lowercaseKey) != nil || lowercaseKey.range(of: lowercaseLocalizetionKey) != nil {
+                if lowercaseLocalizetionKey.range(of: lowercaseKey) != nil {
+                    rangeProportion = Float(lowercaseKey.count) / Float(lowercaseLocalizetionKey.count)
+                } else {
+                    rangeProportion = Float(lowercaseLocalizetionKey.count) / Float(lowercaseKey.count)
+                }
+            }
             /* 权重 */
             var weight = 0
             for keyKid in lowercaseKey.enumerated() {
@@ -193,8 +202,11 @@ class LanguageValueController: NSViewController, NSTableViewDataSource, NSTableV
             }
             /* 查找出来的占比 */
             var proportion = Float(weight) / Float(localizetionKey.count)
+            if proportion < 0.6 {
+                proportion = rangeProportion
+            }
             /* 如果相似度大于60% 就可以提醒 */
-            if proportion > 0.6  && proportion <= 1.0 {
+            if proportion >= 0.6  && proportion <= 1.0 {
                 similarKeys.append((localizetionKey,proportion))
             }
         }
