@@ -19,12 +19,9 @@ class LanguageValueController: NSViewController, NSTableViewDataSource, NSTableV
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = self.item?.name
-        guard let item = self.item else {
+        guard let _ = self.item else {
             return
         }
-//        for c in item.list.enumerated() {
-//            print("->>:\(c.element.key)\n->>:\(c.element.value)\n\n")
-//        }
         keys.append(contentsOf: LocalizeStringKit.shareManager().localizeDictionary.keys)
         self.tableView.reloadData()
     }
@@ -52,7 +49,7 @@ class LanguageValueController: NSViewController, NSTableViewDataSource, NSTableV
 			guard var value = item.list[key] else {
 				continue
 			}
-			guard value.characters.count > 0 else {
+			guard value.count > 0 else {
 				continue
 			}
 			guard key.specialEqual(source: value) else {
@@ -143,7 +140,7 @@ class LanguageValueController: NSViewController, NSTableViewDataSource, NSTableV
         var valueString = ""
         
         for key in keys {
-            let value = findValue(key: formatterKey(key: key), list: nil)
+            let value = findValue(key: LCFormatterKey(key: key), list: nil)
             if !key.specialEqual(source: value) {
                 let similarKeys = matchSimilarKeys(key: key)
                 let enValue = list[key]
@@ -235,7 +232,7 @@ class LanguageValueController: NSViewController, NSTableViewDataSource, NSTableV
     }
     
     public func tableView(_ tableView: NSTableView, objectValueFor tableColumn: NSTableColumn?, row: Int) -> Any? {
-        var key = formatterKey(key: keys[row])
+        var key = LCFormatterKey(key: keys[row])
         guard let column = tableColumn, let cell = column.dataCell as? NSTextFieldCell else {
             return nil
         }
@@ -255,7 +252,7 @@ class LanguageValueController: NSViewController, NSTableViewDataSource, NSTableV
             if !key.specialEqual(source: value) {
                 cell.backgroundColor = NSColor.red
             } else {
-                if let v = value, v.characters.count > 0 {
+                if let v = value, v.count > 0 {
                     cell.backgroundColor = NSColor.green
                 } else {
                     cell.backgroundColor = NSColor.yellow
@@ -342,9 +339,5 @@ class LanguageValueController: NSViewController, NSTableViewDataSource, NSTableV
 		saveInPath(path: savePath)
 
 	}
-    
-    func formatterKey(key:String) -> String {
-        return key.replacingOccurrences(of: "\u{08}", with: "")
-    }
 
 }

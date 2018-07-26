@@ -8,24 +8,37 @@
 
 import Cocoa
 
+/* 查找工程存在的多语言 */
 class FindLocalizeStringController: NSViewController, NSTableViewDataSource {
+    /* 显示查找的状态 */
     @IBOutlet weak var stateLabel: NSTextField!
+    /* 超找出来结果的表格 */
     @IBOutlet weak var tableView: NSTableView!
+    /* 显示正在查找的路径地址 */
     @IBOutlet weak var filePathLabel: NSTextField!
     
+    /* 显示超找的总数量 */
     @IBOutlet weak var countLabel: NSTextField!
+    /* 查找管理器的单利对象 */
     let findKit:FindLocalizeStringKit = FindLocalizeStringKit.shareManager()
+    /* 需要查找的路径 */
     var findPath:String?
+    /* 查找出来的数据数组 */
     var keys:[String] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        /* 如果路径不存在 结束查询 */
         guard let path  = findPath else {
             return
         }
-        self.stateLabel.stringValue = "正在查找"
+        /* 开始查询 */
+        self.stateLabel.stringValue = "正在查找..."
+        /* 查找管理器查找完成的回调 */
         findKit.completionLog = {log in
             self.filePathLabel.stringValue = log
         }
+        /* 查找管理器查找一组最新的数据回调 */
         findKit.updateCompletion = { key, value in
             self.keys.append(key)
             self.tableView.reloadData()
@@ -63,7 +76,7 @@ class FindLocalizeStringController: NSViewController, NSTableViewDataSource {
         }
         var content = ""
         for c in FindLocalizeStringKit.shareManager().list.enumerated() {
-            guard c.element.value.characters.count > 0 else {
+            guard c.element.value.count > 0 else {
                 continue
             }
             content += "\"\(c.element.key)\" = \"\(c.element.value)\";\n"

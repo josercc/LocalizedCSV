@@ -58,8 +58,8 @@ class TranslateStringViewController: NSViewController, NSTextViewDelegate {
             var result = ""
             for li in textList.enumerated() {
                 let content = li.element
-                if content.characters.count > 0 {
-                    if result.characters.count != 0 {
+                if content.count > 0 {
+                    if result.count != 0 {
                         result += "_"
                     }
                     result += content.uppercased()

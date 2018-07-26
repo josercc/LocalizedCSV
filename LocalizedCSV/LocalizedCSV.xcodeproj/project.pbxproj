@@ -23,6 +23,7 @@
 		5D505E8C1F5E9EAC00016766 /* LocalLanguagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D505E8B1F5E9EAC00016766 /* LocalLanguagesViewController.swift */; };
 		5D505E8E1F5E9EE400016766 /* LanguageSourceKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D505E8D1F5E9EE400016766 /* LanguageSourceKit.swift */; };
 		5D84B93A1F4A851E009EA4A2 /* FileKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D84B9391F4A851E009EA4A2 /* FileKit.swift */; };
+		5DA04CF421096C0B00770A2B /* LanguageFunction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DA04CF321096C0B00770A2B /* LanguageFunction.swift */; };
 		5DE617E51FA1CA85000A6370 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DE617E41FA1CA85000A6370 /* SettingViewController.swift */; };
 		9B82C449E090FFB5A46E370C /* Pods_LocalizedCSV.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04F0EA87C987B058659C431A /* Pods_LocalizedCSV.framework */; };
 /* End PBXBuildFile section */
@@ -47,6 +48,7 @@
 		5D505E8B1F5E9EAC00016766 /* LocalLanguagesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalLanguagesViewController.swift; sourceTree = "<group>"; };
 		5D505E8D1F5E9EE400016766 /* LanguageSourceKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LanguageSourceKit.swift; sourceTree = "<group>"; };
 		5D84B9391F4A851E009EA4A2 /* FileKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileKit.swift; sourceTree = "<group>"; };
+		5DA04CF321096C0B00770A2B /* LanguageFunction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageFunction.swift; sourceTree = "<group>"; };
 		5DE617E41FA1CA85000A6370 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		78AB411939E0316119BB7FDD /* Pods-LocalizedCSV.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LocalizedCSV.release.xcconfig"; path = "Pods/Target Support Files/Pods-LocalizedCSV/Pods-LocalizedCSV.release.xcconfig"; sourceTree = "<group>"; };
 		9CA2E9213676361ECC6388E9 /* Pods-LocalizedCSV.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LocalizedCSV.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LocalizedCSV/Pods-LocalizedCSV.debug.xcconfig"; sourceTree = "<group>"; };
@@ -112,6 +114,7 @@
 				5D505E8D1F5E9EE400016766 /* LanguageSourceKit.swift */,
 				5DE617E41FA1CA85000A6370 /* SettingViewController.swift */,
 				5D005DF01FA2D9650085E94C /* TranslateStringViewController.swift */,
+				5DA04CF321096C0B00770A2B /* LanguageFunction.swift */,
 			);
 			path = LocalizedCSV;
 			sourceTree = "<group>";
@@ -262,6 +265,7 @@
 				5D499EF01F467E75000F24B1 /* CSVParseKit.swift in Sources */,
 				5D84B93A1F4A851E009EA4A2 /* FileKit.swift in Sources */,
 				5D499EE11F459ACA000F24B1 /* AppDelegate.swift in Sources */,
+				5DA04CF421096C0B00770A2B /* LanguageFunction.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

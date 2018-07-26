@@ -19,7 +19,7 @@ class FileKit {
     static func findAllFiles(path:String, allowFileTypes:[String] = []) -> [String] {
         /// 存放查询出的文件数组
         var files:[String] = []
-        /// 是否是文件夹 默认是不是
+        /// 是否是文件夹 默认不是
         var isDirectory = ObjCBool(false)
         /// 查询路径是否存在 不存在直接返回空数组
         guard FileManager.default.fileExists(atPath: path, isDirectory: &isDirectory) else {
@@ -73,5 +73,36 @@ class FileKit {
             return nil;
         }
         return path;
+    }
+    
+    static func getFile(fileType:String) -> String {
+        let openPannel = NSOpenPanel()
+        openPannel.allowedFileTypes = [fileType]
+        openPannel.canChooseFiles = true
+        openPannel.canChooseDirectories = false
+        guard openPannel.runModal() == NSFileHandlingPanelOKButton else {
+            return ""
+        }
+        return openPannel.urls.first?.absoluteString.replacingOccurrences(of: "file://", with: "") ?? ""
+    }
+    
+    /// 判断一个文件后缀是不是指定的后缀
+    ///
+    /// - Parameters:
+    ///   - typeName: 指定的后缀名称
+    ///   - filePath: 文件的路径
+    /// - Returns: 如果 true 代表是我们指定后缀的文件 false 代表不是
+    static func isSuffixType(typeName:String, filePath:String) -> Bool {
+        let pathList = filePath.components(separatedBy: ".")
+        guard pathList.count > 1 else {
+            return false
+        }
+        guard let lastPath = pathList.last else {
+            return false
+        }
+        guard lastPath == typeName else {
+            return false
+        }
+        return true
     }
 }
