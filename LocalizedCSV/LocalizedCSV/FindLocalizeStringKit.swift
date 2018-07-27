@@ -85,7 +85,8 @@ class FindLocalizeStringKit {
         /* 存放查找出来的多语言字典 */
         var localizeString:[String:String] = [:]
         /* 查找出现第一个所在的位置GBLocalizedString( */
-        guard let range1 = string.range(of: "GBLocalizedString(") else {
+        let searchLocallizetionPrefix = SettingModel.shareSettingModel().searchLocalizetionPrefix ?? "GBLocalizedString"
+        guard let range1 = string.range(of: "\(searchLocallizetionPrefix)(") else {
             /* 查找不到就返回 */
             return localizeString
         }

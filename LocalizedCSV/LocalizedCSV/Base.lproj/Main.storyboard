@@ -9,7 +9,7 @@
         <!--设置-->
         <scene sceneID="6sj-Lf-SRK">
             <objects>
-                <viewController title="设置" id="2MZ-1w-cLK" customClass="SettingViewController" customModule="LocalizedCSV" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="设置" identifier="SettingViewController" storyboardIdentifier="SettingViewController" id="2MZ-1w-cLK" customClass="SettingViewController" customModule="LocalizedCSV" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="NVG-AN-y6c">
                         <rect key="frame" x="0.0" y="0.0" width="466" height="300"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -78,6 +78,9 @@
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" size="13" name=".PingFangSC-Regular"/>
                                 </buttonCell>
+                                <connections>
+                                    <action selector="setting:" target="2MZ-1w-cLK" id="4z3-tX-lQx"/>
+                                </connections>
                             </button>
                         </subviews>
                         <constraints>
@@ -99,6 +102,7 @@
                     </view>
                     <connections>
                         <outlet property="languageCodeTextView" destination="P5w-qh-Anp" id="elN-oh-wG4"/>
+                        <outlet property="searchLocalizetionPrefix" destination="G8u-VF-iF4" id="6Db-hd-Se3"/>
                     </connections>
                 </viewController>
                 <customObject id="VGM-wQ-PGK" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
@@ -791,6 +795,7 @@
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
                         <rect key="contentRect" x="196" y="240" width="480" height="270"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
+                        <value key="minSize" type="size" width="600" height="400"/>
                         <connections>
                             <outlet property="delegate" destination="B8D-0N-5wS" id="9A6-Qi-XQM"/>
                         </connections>
@@ -971,7 +976,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="tJh-nT-MNd">
-                                <rect key="frame" x="10" y="395" width="363" height="22"/>
+                                <rect key="frame" x="10" y="395" width="364" height="22"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="输入SVG路径" drawsBackground="YES" id="ZDF-iD-wBf">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
@@ -979,8 +984,8 @@
                                 </textFieldCell>
                             </textField>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="FDh-aF-YHm">
-                                <rect key="frame" x="397" y="388" width="121" height="32"/>
-                                <buttonCell key="cell" type="push" title="选取SVG文件" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="JFU-np-hSZ">
+                                <rect key="frame" x="398" y="388" width="120" height="32"/>
+                                <buttonCell key="cell" type="push" title="选取CSV文件" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="JFU-np-hSZ">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" size="13" name=".PingFangSC-Regular"/>
                                 </buttonCell>
@@ -989,8 +994,8 @@
                                 </connections>
                             </button>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="L9B-IA-cIA">
-                                <rect key="frame" x="335" y="343" width="183" height="32"/>
-                                <buttonCell key="cell" type="push" title="选取LocalizeString文件" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="fEx-Il-PEJ">
+                                <rect key="frame" x="282" y="343" width="236" height="32"/>
+                                <buttonCell key="cell" type="push" title="选取LocalizeString开发语言文件" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="fEx-Il-PEJ">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" size="13" name=".PingFangSC-Regular"/>
                                 </buttonCell>
@@ -999,7 +1004,7 @@
                                 </connections>
                             </button>
                             <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Gdb-Y4-jBc">
-                                <rect key="frame" x="10" y="350" width="301" height="22"/>
+                                <rect key="frame" x="10" y="350" width="248" height="22"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="输入LocazeString文件路径" drawsBackground="YES" id="YDu-b1-qdm">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>

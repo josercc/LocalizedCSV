@@ -33,6 +33,9 @@ class ViewController: NSViewController, NSTableViewDataSource, NSTableViewDelega
     }
     
     @IBAction func readCSVFile(_ sender: NSButton) {
+        guard CheckConfigManager.checkConfigReadySuccess() else {
+            return
+        }
         /* 读取 CSV 文件并赋值到文本框里面 */
         self.csvTextFiled.stringValue = FileKit.getFile(fileType: "csv")
         /* 执行异步解析 */
@@ -69,6 +72,9 @@ class ViewController: NSViewController, NSTableViewDataSource, NSTableViewDelega
     }
     
     @IBAction func readLocalizeStringFile(_ sender: NSButton) {
+        guard CheckConfigManager.checkConfigReadySuccess() else {
+            return
+        }
         self.localizeStringTextFiled.stringValue = FileKit.getFile(fileType: "strings")
         try? LocalizeStringKit.shareManager().parse(filePath: self.localizeStringTextFiled.stringValue)
         var stringList = self.localizeStringTextFiled.stringValue.components(separatedBy: "/")
@@ -117,6 +123,9 @@ class ViewController: NSViewController, NSTableViewDataSource, NSTableViewDelega
      拿着本地工程的所有 Key 对比多语言表格的 Key 如果不在多语言表格里面 则代表需要添加的
      */
     @IBAction func exportUnAdd(_ sender: Any) {
+        guard CheckConfigManager.checkConfigReadySuccess() else {
+            return
+        }
         /* 获取全部的多语言配置列表 */
         let list = FindLocalizeStringKit.shareManager().list
         guard list.count > 0 else {
@@ -220,6 +229,9 @@ class ViewController: NSViewController, NSTableViewDataSource, NSTableViewDelega
 
     /* 一键快速保存所有的多语言 */
     @IBAction func quickAllLocalizetion(_ sender: Any) {
+        guard CheckConfigManager.checkConfigReadySuccess() else {
+            return
+        }
         var errorMessage = ""
         guard let rootPath = SettingModel.shareSettingModel().projectRootPath else {
             let alert = NSAlert()

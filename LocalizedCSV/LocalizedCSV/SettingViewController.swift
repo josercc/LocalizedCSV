@@ -11,7 +11,7 @@ import Cocoa
 class SettingViewController: NSViewController {
 
 	@IBOutlet weak var languageCodeTextView:NSTextView!
-
+    @IBOutlet weak var searchLocalizetionPrefix:NSTextField!
     override func viewDidLoad() {
         super.viewDidLoad()
 		self.languageCodeTextView.string = SettingModel.shareSettingModel().languageCodeString()
@@ -33,6 +33,9 @@ class SettingViewController: NSViewController {
 		SettingModel.shareSettingModel().saveNewLanguageCode(dic: textDic)
 	}
     
+    @IBAction func setting(_ sender: Any) {
+        SettingModel.shareSettingModel().searchLocalizetionPrefix = self.searchLocalizetionPrefix.stringValue
+    }
 }
 
 let settingModel = SettingModel()
@@ -42,6 +45,8 @@ class SettingModel {
 	var projectRootPath:String?
 
 	var projectLanguageCode:[String:String] = [:]
+    
+    var searchLocalizetionPrefix:String?
 
 	init() {
 		if let oldLanguageCode = UserDefaults.standard.object(forKey: "projectLanguageCode") as? [String:String] {
@@ -54,9 +59,7 @@ class SettingModel {
 	}
 
 	func saveNewLanguageCode(dic:[String:String]) {
-		for (key,value) in dic {
-			self.projectLanguageCode[key] = value
-		}
+		self.projectLanguageCode = dic
 		UserDefaults.standard.set(self.projectLanguageCode, forKey: "projectLanguageCode")
 		UserDefaults.standard.synchronize()
 	}

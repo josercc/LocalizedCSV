@@ -14,72 +14,81 @@ typora-copy-images-to: ./images
 
 ## 未来计划
 
-* 自动提取工程需要国际化文本 难度较大 有实现方法可以提给我 现在只能想到查找设置UILabel UIButton UIViewController标题 等代码处
+* ~~自动提取工程需要国际化文本 难度较大 有实现方法可以提给我 现在只能想到查找设置UILabel UIButton UIViewController标题 等代码处~~(技术实现有些难度)
 
 ## 现在支持的功能
 
 * 支持从已经翻译的`CSV`文件读取已经翻译的内容一键保存到指定的`.Strings`文件里面
 * 支持查看某种语言未翻译和已翻译部分
-* 支持导出还未翻译的字段
-* 支持读取源码NSLocalizeString()读取键值保存到原语言包
+* 支持导出还未翻译的字段 支持查找相似已经翻译的 Key
+* 支持读取源码NSLocalizeString()(或者其他自定义)读取键值保存到原语言包
+* 支持一键保存到本地
+* 支持配置多语言简码表
+* 支持查找出翻译的多语言和开发母语占位符不匹配的问题
 
 ## 重要说明
 
-* **因为读取CSV系统会自动用`,`分割，如果原生的字段存在 `，`请在导出为CSV文件用 `{R}`占位符替换**
-* **导出未翻译部分请全部替换`{R}`为`,`**
+* **因为读取CSV系统会自动用`,`分割，如果原生的字段存在 `，`请在导出为CSV文件用 `{R}`占位符替**
+
+* **下载的 CSV 文件或者 Excel 文件请用Number 打开**
 
 ## 下载
 
-* 直接下载Mac客户端: [下载](https://github.com/josercc/LocalizedCSV/blob/master/LocalizedCSV/Release/v2.zip?raw=true)
+* 直接前往最新的 Release下载Mac客户端: https://github.com/josercc/LocalizedCSV/releases
 * 下载源码运行即可
+* 最低支持 OSX10.10
 
 ## 使用说明
 
 * 主界面
 
-![AD494F20-E554-409C-ABE5-D6CF1D327647](images/AD494F20-E554-409C-ABE5-D6CF1D327647.png)
+![image-20180727105546949](http://ipicimage-1251019290.coscd.myqcloud.com/2018-07-27-025548.png)
 
-* 读取本地已经存在的`CSV`文件(名字叫做SVG是打错了，懒得改了)
+* 读取本地已经存在的`CSV`文件
 
-![BD96D5A5-77D7-40AE-9E7A-B9C131F492E5](images/BD96D5A5-77D7-40AE-9E7A-B9C131F492E5.png)
+![image-20180727105611394](http://ipicimage-1251019290.coscd.myqcloud.com/2018-07-27-025612.png)
 
 * 读取工程基础语言包
 
-  ![AD1B416F-9B78-43DF-A255-0D9031C85016](images/AD1B416F-9B78-43DF-A255-0D9031C85016.png)
+  ![image-20180727105637147](http://ipicimage-1251019290.coscd.myqcloud.com/2018-07-27-025638.png)
 
 * 已经翻译的语言列表
 
-  ![0728171C-4B91-46AC-8804-7E93A24CA1EB](images/0728171C-4B91-46AC-8804-7E93A24CA1EB.png)
+  ![image-20180727105818718](http://ipicimage-1251019290.coscd.myqcloud.com/2018-07-27-025821.png)
 
   > 一般第一个为基础语言包不需要处理
 
 * 查看已经翻译语言包
 
-  ![78BCDF4F-9863-4EBF-84CE-BA5FC5C87BAA](images/78BCDF4F-9863-4EBF-84CE-BA5FC5C87BAA.png)
+  ![image-20180727105901231](http://ipicimage-1251019290.coscd.myqcloud.com/2018-07-27-025902.png)
 
 * 翻译和未翻译 (红色为未翻译，绿色为已经翻译)
 
   ![765B7C73-DE4E-4E30-BC44-2EE4F5B0B648](images/765B7C73-DE4E-4E30-BC44-2EE4F5B0B648.png)
 
-* 保存到对应的语言路径
 
-  ![9B8CFF95-751F-4DEB-9777-37E02CFC4311](images/9B8CFF95-751F-4DEB-9777-37E02CFC4311.png)
+## 操作视频
 
-  > 如果存在还未翻译部分不能保存
+- 视频地址
 
-* 导出未翻译部分CSV
+- 一些配置说明
 
-  ![4A5862EA-6ED6-498D-80A5-C41083D19238](images/4A5862EA-6ED6-498D-80A5-C41083D19238.png)
+  - 语言简码
 
-  > 导出的CSV需要全局把`{R}`替换成`,`
+    ![image-20180727111326519](images/image-20180727111326519.png)
 
-* 查询工程使用NSLocalizeString()的字符串 
+    设置的公式 **语言标题:简码**
 
-  ![ACC3551F-1767-48FF-AA7E-692C0209F6DD](images/ACC3551F-1767-48FF-AA7E-692C0209F6DD.png)
+    - 语言标题为多语言表格的对应多语言的标题
+    - 简码为工程对应多语言的文件夹简码
 
-  ![74B0B83A-E715-4EEC-A5C1-F0D954BD9EDD](images/74B0B83A-E715-4EEC-A5C1-F0D954BD9EDD.png)
+  - 查询字符串宏 默认为 NSLocalizedString 如果你和我们一样自定义了宏就可以设置一下
 
-  点击保存到指定目录即可。
+    ![image-20180727111552940](images/image-20180727111552940.png)
+
+  - 读取本地多语言
+
+    因为工程的多语言是作为数据的依赖，所以之后的任何操作都需要读取本地多语言之后才可以。
 
 ## 其他支持
 

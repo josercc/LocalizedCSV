@@ -22,6 +22,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     ///
     /// - Parameter sender: 执行的按钮
     @IBAction func findProjLocalizeString(_ sender: Any) {
+        findProjLocalizeString()
+    }
+    
+    func findProjLocalizeString() {
         guard let path = FileKit.getDirectory() else {
             return
         }
