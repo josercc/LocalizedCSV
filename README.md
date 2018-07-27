@@ -64,7 +64,7 @@ typora-copy-images-to: ./images
 
 * 翻译和未翻译 (红色为未翻译，绿色为已经翻译)
 
-  ![765B7C73-DE4E-4E30-BC44-2EE4F5B0B648](images/765B7C73-DE4E-4E30-BC44-2EE4F5B0B648.png)
+  ![765B7C73-DE4E-4E30-BC44-2EE4F5B0B648](http://ipicimage-1251019290.coscd.myqcloud.com/2018-07-27-63412.jpg)
 
 
 ## 操作演示
@@ -76,7 +76,7 @@ typora-copy-images-to: ./images
 
   - 语言简码
 
-    ![image-20180727111326519](images/image-20180727111326519.png)
+    ![image-20180727111326519](http://ipicimage-1251019290.coscd.myqcloud.com/2018-07-27-063414.jpg)
 
     设置的公式 **语言标题:简码**
 
@@ -85,7 +85,7 @@ typora-copy-images-to: ./images
 
   - 查询字符串宏 默认为 NSLocalizedString 如果你和我们一样自定义了宏就可以设置一下
 
-    ![image-20180727111552940](images/image-20180727111552940.png)
+    ![image-20180727111552940](http://ipicimage-1251019290.coscd.myqcloud.com/2018-07-27-063415.jpg)
 
   - 读取本地多语言
 
@@ -95,12 +95,12 @@ typora-copy-images-to: ./images
 
 * 提取代码里面的国际化可以使用`FauxPas`软件
 
-  ![FE532CA2-41AA-4F81-9E07-F0C4F11B2CE1](images/FE532CA2-41AA-4F81-9E07-F0C4F11B2CE1.png)
+  ![FE532CA2-41AA-4F81-9E07-F0C4F11B2CE1](http://ipicimage-1251019290.coscd.myqcloud.com/2018-07-27-063413.jpg)
 
 * 查看和编辑国际化语言包可以使用`StringManager`
 
   https://github.com/Loongwoo/StringManager
 
-  ![2ABE0FF5-1923-45DE-9FD8-41E41FAFFED6](images/2ABE0FF5-1923-45DE-9FD8-41E41FAFFED6.png)
+  ![2ABE0FF5-1923-45DE-9FD8-41E41FAFFED6](http://ipicimage-1251019290.coscd.myqcloud.com/2018-07-27-063411.jpg)
 
   ​
