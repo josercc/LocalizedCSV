@@ -67,9 +67,9 @@ typora-copy-images-to: ./images
   ![765B7C73-DE4E-4E30-BC44-2EE4F5B0B648](images/765B7C73-DE4E-4E30-BC44-2EE4F5B0B648.png)
 
 
-## 操作视频
+## 操作演示
 
-- 视频地址
+- 演示地址
 ![](https://github.com/josercc/LocalizedCSV/blob/master/2018-07-27%2011_38_14.gif?raw=true)
 
 - 一些配置说明
