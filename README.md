@@ -70,6 +70,7 @@ typora-copy-images-to: ./images
 ## 操作视频
 
 - 视频地址
+![](https://github.com/josercc/LocalizedCSV/blob/master/2018-07-27%2011_38_14.gif?raw=true)
 
 - 一些配置说明
 
