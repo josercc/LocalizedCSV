@@ -241,7 +241,9 @@ class ViewController: NSViewController, NSTableViewDataSource, NSTableViewDelega
         }
         self.csvParse.items.forEach { (item) in
             guard let enCode = SettingModel.shareSettingModel().projectLanguageCode[item.name] else {
-                errorMessage += "\(item.name)在配置里面找不到配置简码无法一键保存\n"
+                if !SettingModel.shareSettingModel().filterLocalizedNames.contains(item.name) {
+                    errorMessage += "\(item.name)在配置里面找不到配置简码无法一键保存\n"
+                }
                 return
             }
             let savePath = "\(rootPath)/\(enCode).lproj"
@@ -260,7 +262,7 @@ class ViewController: NSViewController, NSTableViewDataSource, NSTableViewDelega
         let keys = LocalizeStringKit.shareManager().localizeDictionary.keys
         for c in keys.enumerated() {
             let key = c.element
-            guard var value = item.list[key] else {
+            guard let value = item.list[key] else {
                 continue
             }
             guard value.count > 0 else {
@@ -269,16 +271,21 @@ class ViewController: NSViewController, NSTableViewDataSource, NSTableViewDelega
             guard let enValue = LocalizeStringKit.shareManager().localizeDictionary[key] else {
                 return
             }
-            guard enValue.specialEqual(source: value) else {
-                errorMessage += "\(value)占位符和\(enValue)占位符个数不一样\n"
+            var fixSource = value
+            SettingModel.shareSettingModel().fixValues.forEach { (key,value) in
+                fixSource = fixSource.replacingOccurrences(of: key, with: value)
+            }
+            
+            guard enValue.specialEqual(source: fixSource) else {
+                errorMessage += "\(fixSource)占位符和\(enValue)占位符个数不一样\n\n"
                 continue
             }
             guard !value.containChineseChar() else {
-                errorMessage += "\(value)不能包含中文\n"
+                errorMessage += "\(fixSource)不能包含中文\n\n"
                 continue
             }
-            value = value.replacingOccurrences(of: "\"", with: "'")
-            var append = "\"\(key)\" = \"\(value)\";\n"
+            fixSource = fixSource.replacingOccurrences(of: "\"", with: "'")
+            var append = "\"\(key)\" = \"\(fixSource)\";\n"
             append = append.replacingOccurrences(of: "\r", with: "")
             content += append
         }

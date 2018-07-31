@@ -51,7 +51,7 @@ extension String {
             return false
         }
         /* 针对于 iOS 开发特殊的字符 */
-        let specials = ["%@","%%","\\n",":","*","...","&",">","?"]
+        let specials = SettingModel.shareSettingModel().checkPlaceholders
         for special in specials {
             guard StringKit.compareSpecial(special: special, left: self, right: source) else {
                 return false
