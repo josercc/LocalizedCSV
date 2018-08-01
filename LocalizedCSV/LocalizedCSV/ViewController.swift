@@ -159,7 +159,7 @@ class ViewController: NSViewController, NSTableViewDataSource, NSTableViewDelega
                 if similarKeys.count > 0 {
                     keyString += "\(key)"
                     for similarKeyKid in similarKeys {
-                        keyString += " 相似的Key: \(similarKeyKid.similarKey)(相似度:\(similarKeyKid.proportion * 100)%)"
+                        keyString += "[相似的Key:[\(similarKeyKid.similarKey)](相似度:\(similarKeyKid.proportion * 100)%)],"
                     }
                     keyString += "\n"
                 } else {
@@ -169,7 +169,7 @@ class ViewController: NSViewController, NSTableViewDataSource, NSTableViewDelega
                 
             }
         }
-        exportString = "\(keyString) \n\n\n\n\(valueString)"
+        exportString = "\(keyString)\n\n\n\n\(valueString)"
         guard let path = FileKit.getDirectory() else {
             return
         }
@@ -242,7 +242,7 @@ class ViewController: NSViewController, NSTableViewDataSource, NSTableViewDelega
         self.csvParse.items.forEach { (item) in
             guard let enCode = SettingModel.shareSettingModel().projectLanguageCode[item.name] else {
                 if !SettingModel.shareSettingModel().filterLocalizedNames.contains(item.name) {
-                    errorMessage += "\(item.name)在配置里面找不到配置简码无法一键保存\n"
+                    errorMessage += "[\(item.name)]在配置里面找不到配置简码无法一键保存\n"
                 }
                 return
             }
@@ -277,11 +277,11 @@ class ViewController: NSViewController, NSTableViewDataSource, NSTableViewDelega
             }
             
             guard enValue.specialEqual(source: fixSource) else {
-                errorMessage += "\(fixSource)占位符和\(enValue)占位符个数不一样\n\n"
+                errorMessage += "[\(fixSource)]占位符和[\(enValue)]占位符个数不一样\n\n"
                 continue
             }
             guard !value.containChineseChar() else {
-                errorMessage += "\(fixSource)不能包含中文\n\n"
+                errorMessage += "[\(fixSource)]不能包含中文\n\n"
                 continue
             }
             fixSource = fixSource.replacingOccurrences(of: "\"", with: "'")
