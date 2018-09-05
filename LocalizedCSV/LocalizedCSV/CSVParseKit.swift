@@ -54,9 +54,8 @@ class CSVParseKit {
         }
         /* 获取 CSV 中的内容 */
         var csvContent = try String(contentsOfFile: file)
-        csvContent = csvContent.replacingOccurrences(of: "\\n", with: "\n")
         /* 按照\r\n 切割内容为一个数组 */
-        let csvLines = csvContent.components(separatedBy: "\r\n")
+        var csvLines = csvContent.components(separatedBy: "\r\n")
         /* 如果切割不出来则抛出异常 */
         guard csvLines.count > 0 else {
             throw CSVParseKitError.fileError
@@ -95,6 +94,7 @@ class CSVParseKit {
             }
             /* 格式化获取到的值 */
             value0 = formatterValue(value: value0)
+            
             /* 遍历已经存在的数据列表 */
             for itemC in _tempItems.enumerated() {
                 /* 如果存在的值数组已经大于或者等于 切割的值的数组个数 则跳过 */
@@ -104,20 +104,19 @@ class CSVParseKit {
                 itemC.element.list[value0] = formatterValue(value: values[itemC.offset])
             }
         }
-        
     }
     
     /// 格式化多语言标题
     ///
     /// - Parameter value: 多语言标题
     /// - Returns: 格式化之后多语言标题
-    private func formatterValue(value:String) -> String {
+    func formatterValue(value:String) -> String {
         var v = value
         /* 需要格式化的占位符 */
         let formatters = [
             "{R}":",",
             "\r":"",
-            "\n":"",
+            "\u{08}":"",
         ]
         formatters.forEach { (key,value) in
             v = v.replacingOccurrences(of: key, with: value)

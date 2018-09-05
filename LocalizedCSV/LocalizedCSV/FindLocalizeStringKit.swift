@@ -65,8 +65,8 @@ class FindLocalizeStringKit {
                 guard !list.keys.contains(d.key) else {
                     continue
                 }
-                let key = d.key.replacingOccurrences(of: "\u{08}", with: "")
-                let value = d.value.replacingOccurrences(of: "\u{08}", with: "")
+                let key = CSVParseKitManager.manager.formatterValue(value: d.key)
+                let value = CSVParseKitManager.manager.formatterValue(value: d.value)
                 list[key] = value
                 if let updateCompletion = self.updateCompletion {
                     updateCompletion(d.key, d.value)

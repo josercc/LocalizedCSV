@@ -289,7 +289,7 @@ class ViewController: NSViewController, NSTableViewDataSource, NSTableViewDelega
             append = append.replacingOccurrences(of: "\r", with: "")
             content += append
         }
-        content = content.replacingOccurrences(of: "\\", with: "\\\\")
+//        content = content.replacingOccurrences(of: "\\", with: "\\\\")
         do {
             try content.write(toFile: "\(path)/Localizable.strings", atomically: true, encoding: String.Encoding.utf8)
         } catch let error {
