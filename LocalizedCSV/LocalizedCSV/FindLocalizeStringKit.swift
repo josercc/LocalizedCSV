@@ -42,6 +42,9 @@ class FindLocalizeStringKit {
         let files = FileKit.findAllFiles(path: path)
         /* 遍历所有的文件 */
         for file in files {
+            if let _  = file.range(of: "SOADefineFunction.h") {
+                print("\(file)")
+            }
             /* 开始查找之前 回调正在查找的文件路径 */
             if let completionLog = self.completionLog {
                 completionLog(file)
@@ -95,10 +98,7 @@ class FindLocalizeStringKit {
         /* 查找多语言的中间的文本 */
         let filter = filterBrackets(string: subString)
         var parseString = filter.result
-        /* 如果查找的字符串不存在@"则直接返回 */
-        guard let _ = parseString.range(of: "@\"") else {
-            return localizeString
-        }
+
         /* 多语言的 Key */
         var key:String?
         /* 多语言的值 */
