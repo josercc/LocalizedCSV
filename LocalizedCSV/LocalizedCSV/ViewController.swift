@@ -141,7 +141,7 @@ class ViewController: NSViewController, NSTableViewDataSource, NSTableViewDelega
         var keyString = ""
         /* 需要的翻译的 Value 的字段 */
         var valueString = ""
-        
+        var findIndex = 1
         /* 遍历工程多语言的所有键 */
         for key in LocalizeStringKit.shareManager().localizeDictionary.keys {
             /* 去掉 Key 自动生成的字符 */
@@ -154,22 +154,22 @@ class ViewController: NSViewController, NSTableViewDataSource, NSTableViewDelega
             if !item.list.keys.contains(formatterKey) {
                 let enValue = LocalizeStringKit.shareManager().localizeDictionary[key]
                 /* 查找相似的 Key数组信息 */
-                let similarKeys = matchSimilarKeys(key: key, item:item)
+                let similarKeys = matchSimilarKeys(enValue: enValue!, item:item)
                 /* 如果查找出来相似的 Key 信息 */
+                keyString += "[\(findIndex)] key:[\(key)] value:[\(enValue!)]\n"
                 if similarKeys.count > 0 {
-                    keyString += "\(key)"
+                    keyString += ">>>>>>>>>>>>>>>>>>>>>>>>>>\n"
                     for similarKeyKid in similarKeys {
-                        keyString += "[相似的Key:[\(similarKeyKid.similarKey)](相似度:\(similarKeyKid.proportion * 100)%)],"
+                        keyString += "[相似的Key:[\(similarKeyKid.similarKey)]相似值:[\(similarKeyKid.value)](相似度:\(similarKeyKid.proportion * 100)%)]\n"
                     }
-                    keyString += "\n"
-                } else {
-                    keyString += "\(key)\n"
+                    keyString += ">>>>>>>>>>>>>>>>>>>>>>>>>>\n"
                 }
                 valueString += "\(enValue ?? "")\n"
-                
+                findIndex += 1
             }
+            
         }
-        exportString = "\(keyString)\n\n\n\n\(valueString)"
+        exportString = "\(keyString)"
         guard let path = FileKit.getDirectory() else {
             return
         }
@@ -181,29 +181,25 @@ class ViewController: NSViewController, NSTableViewDataSource, NSTableViewDelega
     ///
     /// - Parameter key: 需要查找的 Key
     /// - Returns:  相似 Key 的元祖数组 similarKey: 相似的 Key 字段 proportion: 相似度占比
-    func matchSimilarKeys(key:String, item:CSVItem) -> [(similarKey:String, proportion:Float)] {
+    func matchSimilarKeys(enValue:String, item:CSVItem) -> [(similarKey:String, value:String ,proportion:Float)] {
         /* 储存查找相似Key的信息 */
-        var similarKeys:[(similarKey:String, proportion:Float)] = []
+        var similarKeys:[(similarKey:String, value:String ,proportion:Float)] = []
         /* 遍历已经翻译的 Key */
-        for localizetionKey in item.list.keys {
+        for (key,value) in item.list {
             /* 查找的 Key和遍历的全部变成小写 */
-            let lowercaseKey = key.lowercased()
+            let lowercaseEnValue = enValue.lowercased()
             /* 多语言表格Key 转换为小写 */
-            let lowercaseLocalizetionKey = localizetionKey.lowercased()
+            let lowercaseValue = value.lowercased()
             /* 包含关系的权重 */
             var rangeProportion:Float = 0
             /* 如果一方的字符串被包含在另外一方里面 */
-            if lowercaseLocalizetionKey.range(of: lowercaseKey) != nil || lowercaseKey.range(of: lowercaseLocalizetionKey) != nil {
-                if lowercaseLocalizetionKey.range(of: lowercaseKey) != nil {
-                    rangeProportion = Float(lowercaseKey.count) / Float(lowercaseLocalizetionKey.count)
-                } else {
-                    rangeProportion = Float(lowercaseLocalizetionKey.count) / Float(lowercaseKey.count)
-                }
+            if lowercaseValue.range(of: lowercaseEnValue) != nil {
+                rangeProportion = Float(lowercaseEnValue.count) / Float(lowercaseValue.count)
             }
             /* 权重 */
             var weight = 0
-            for keyKid in lowercaseKey.enumerated() {
-                for localizetionKeyKid in lowercaseLocalizetionKey.enumerated() {
+            for keyKid in lowercaseEnValue.enumerated() {
+                for localizetionKeyKid in lowercaseValue.enumerated() {
                     /* 如果索引一样 并且字符一样 那样权重+1 */
                     if keyKid.offset == localizetionKeyKid.offset && keyKid.element == localizetionKeyKid.element {
                         weight += 1
@@ -211,15 +207,16 @@ class ViewController: NSViewController, NSTableViewDataSource, NSTableViewDelega
                 }
             }
             /* 查找出来的占比 */
-            var proportion = Float(weight) / Float(localizetionKey.count)
+            var proportion = Float(weight) / Float(value.count)
             if proportion < 0.6 {
                 proportion = rangeProportion
             }
             /* 如果相似度大于60% 就可以提醒 */
             if proportion >= 0.6  && proportion <= 1.0 {
-                similarKeys.append((localizetionKey,proportion))
+                similarKeys.append((key,value,proportion))
             }
         }
+        
         similarKeys.sort { (left, right) -> Bool in
             return left.proportion > right.proportion
         }
@@ -259,16 +256,19 @@ class ViewController: NSViewController, NSTableViewDataSource, NSTableViewDelega
     
     func saveInPath(path:String, item:CSVItem, errorMessage:inout String) {
         var content = ""
-        let keys = LocalizeStringKit.shareManager().localizeDictionary.keys
+        let keys = FindLocalizeStringKit.shareManager().list.keys
         for c in keys.enumerated() {
             let key = c.element
+//            if key == "Deposit_Expansion_Rule" {
+//                print(key)
+//            }
             guard let value = item.list[key] else {
                 continue
             }
             guard value.count > 0 else {
                 continue
             }
-            guard let enValue = LocalizeStringKit.shareManager().localizeDictionary[key] else {
+            guard let enValue = FindLocalizeStringKit.shareManager().list[key] else {
                 return
             }
             var fixSource = value
@@ -284,7 +284,11 @@ class ViewController: NSViewController, NSTableViewDataSource, NSTableViewDelega
                 errorMessage += "[\(fixSource)]不能包含中文\n\n"
                 continue
             }
-            fixSource = fixSource.replacingOccurrences(of: "\"", with: "'")
+            /* 将\" 临时替换为 {T} */
+            fixSource = fixSource.replacingOccurrences(of: "\\\"", with: "{T}")
+            /* 修复其他" */
+            fixSource = fixSource.replacingOccurrences(of: "\"", with: "")
+            fixSource = fixSource.replacingOccurrences(of: "{T}", with: "\\\"")
             var append = "\"\(key)\" = \"\(fixSource)\";\n"
             append = append.replacingOccurrences(of: "\r", with: "")
             content += append

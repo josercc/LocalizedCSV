@@ -42,8 +42,9 @@ class FindLocalizeStringKit {
         let files = FileKit.findAllFiles(path: path)
         /* 遍历所有的文件 */
         for file in files {
-            if let _  = file.range(of: "SOADefineFunction.h") {
-                print("\(file)")
+            let isSourceFile = file.range(of: ".h") != nil || file.range(of: ".m") != nil || file.range(of: ".swift") != nil
+            if !isSourceFile {
+                continue
             }
             /* 开始查找之前 回调正在查找的文件路径 */
             if let completionLog = self.completionLog {

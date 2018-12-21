@@ -6,7 +6,7 @@
 //  Copyright © 2017年 张行. All rights reserved.
 //
 
-import Foundation
+import AppKit
 
 enum CSVParseKitError: Error {
     case fileError
@@ -54,6 +54,7 @@ class CSVParseKit {
         }
         /* 获取 CSV 中的内容 */
         var csvContent = try String(contentsOfFile: file)
+//        print(csvContent)
         /* 按照\r\n 切割内容为一个数组 */
         var csvLines = csvContent.components(separatedBy: "\r\n")
         /* 如果切割不出来则抛出异常 */
@@ -86,6 +87,11 @@ class CSVParseKit {
             let values = c.element.components(separatedBy: ",")
             /* 如果值的数组不等于支持的语言的数组个数 则报错 */
             if values.count != supportlanguages.count {
+                DispatchQueue.main.async {
+                    let alert = NSAlert()
+                    alert.messageText = c.element
+                    alert.runModal()
+                }
                 throw CSVParseKitError.fileError
             }
             /* 如果第一个值获取不到则继续 */
