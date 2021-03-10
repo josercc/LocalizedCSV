@@ -10,11 +10,11 @@ import Cocoa
 
 class SettingViewController: NSViewController {
 
-	@IBOutlet weak var languageCodeTextView:NSTextView!
+    @IBOutlet var languageCodeTextView:NSTextView!
     @IBOutlet weak var searchLocalizetionPrefix:NSTextField!
-    @IBOutlet weak var filterLocalizeNameTextView:NSTextView!
-    @IBOutlet weak var checkPlaceholderTextView:NSTextView!
-    @IBOutlet weak var fixValueTextView:NSTextView!
+    @IBOutlet var filterLocalizeNameTextView:NSTextView!
+    @IBOutlet var checkPlaceholderTextView:NSTextView!
+    @IBOutlet var fixValueTextView:NSTextView!
     override func viewDidLoad() {
         super.viewDidLoad()
         let setting = SettingModel.shareSettingModel()
@@ -26,44 +26,39 @@ class SettingViewController: NSViewController {
     }
 
     @IBAction func save(_ sender:NSButton) {
-        if let text = self.languageCodeTextView.string {
-            let textList = text.components(separatedBy: "\n")
-            var textDic:[String:String] = [:]
-            for text in textList.enumerated() {
-                let subList = text.element.components(separatedBy: ":")
-                guard subList.count == 2 else {
-                    continue
-                }
-                textDic[subList[0]] = subList[1]
+        let text = self.languageCodeTextView.string
+        let textList = text.components(separatedBy: "\n")
+        var textDic:[String:String] = [:]
+        for text in textList.enumerated() {
+            let subList = text.element.components(separatedBy: ":")
+            guard subList.count == 2 else {
+                continue
             }
-            SettingModel.shareSettingModel().projectLanguageCode = textDic
+            textDic[subList[0]] = subList[1]
         }
+        SettingModel.shareSettingModel().projectLanguageCode = textDic
+        
         if self.searchLocalizetionPrefix.stringValue.count > 0 {
             SettingModel.shareSettingModel().searchLocalizetionPrefix = self.searchLocalizetionPrefix.stringValue
         }
         
-        if let text = self.filterLocalizeNameTextView.string {
-            let textList = text.components(separatedBy: "\n")
-            SettingModel.shareSettingModel().filterLocalizedNames = textList
-        }
+        SettingModel.shareSettingModel().filterLocalizedNames = self.filterLocalizeNameTextView.string.components(separatedBy: "\n")
         
-        if let text = self.checkPlaceholderTextView.string {
-            let textList = text.components(separatedBy: "\n")
-            SettingModel.shareSettingModel().checkPlaceholders = textList
-        }
+        SettingModel.shareSettingModel().checkPlaceholders = self.checkPlaceholderTextView.string.components(separatedBy: "\n")
         
-        if let text = self.fixValueTextView.string {
-            let textList = text.components(separatedBy: "\n")
-            var textDic:[String:String] = [:]
-            for text in textList.enumerated() {
-                let subList = text.element.components(separatedBy: ":")
-                guard subList.count == 2 else {
-                    continue
-                }
-                textDic[subList[0]] = subList[1]
+        
+        let text1 = self.fixValueTextView.string
+        let textList1 = text1.components(separatedBy: "\n")
+        var textDic1:[String:String] = [:]
+        for text in textList1.enumerated() {
+            let subList = text.element.components(separatedBy: ":")
+            guard subList.count == 2 else {
+                continue
             }
-            SettingModel.shareSettingModel().fixValues = textDic
+            textDic1[subList[0]] = subList[1]
         }
+        SettingModel.shareSettingModel().fixValues = textDic1
+        
         
         SettingModel.shareSettingModel().save()
         
@@ -82,7 +77,7 @@ class SettingModel {
 
 	var projectLanguageCode:[String:String] = [:]
     
-    var searchLocalizetionPrefix:String = "GBLocalizedString"
+    var searchLocalizetionPrefix:String = "NSLocalizedString"
     
     var filterLocalizedNames:[String] = []
     

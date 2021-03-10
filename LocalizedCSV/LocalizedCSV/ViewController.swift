@@ -40,18 +40,20 @@ class ViewController: NSViewController, NSTableViewDataSource, NSTableViewDelega
         self.csvTextFiled.stringValue = FileKit.getFile(fileType: "csv")
         /* 执行异步解析 */
         parse(parse: { 
-            do {
-                /* 尝试解析读取到的 CSV 文件 */
-                try self.csvParse.parse(file: self.csvTextFiled.stringValue)
-                /* 如果不报异常 则代表可以刷新表格 */
-                self.canReadloadData = true
-            } catch {
-                /* 如果报异常则不能刷新表格 并提示用户 CSV 文件错误 */
-                self.canReadloadData = false
-                DispatchQueue.main.sync {
-                    let alert = NSAlert()
-                    alert.messageText = "CSV 文件错误"
-                    alert.runModal()
+            DispatchQueue.main.async {
+                do {
+                    /* 尝试解析读取到的 CSV 文件 */
+                    try self.csvParse.parse(file: self.csvTextFiled.stringValue)
+                    /* 如果不报异常 则代表可以刷新表格 */
+                    self.canReadloadData = true
+                } catch {
+                    /* 如果报异常则不能刷新表格 并提示用户 CSV 文件错误 */
+                    self.canReadloadData = false
+                    DispatchQueue.main.sync {
+                        let alert = NSAlert()
+                        alert.messageText = "CSV 文件错误"
+                        alert.runModal()
+                    }
                 }
             }
         }) {
@@ -101,7 +103,7 @@ class ViewController: NSViewController, NSTableViewDataSource, NSTableViewDelega
     }
     
     /// 跳转到语言详情
-    func pushDetail() {
+    @objc func pushDetail() {
         guard self.localizeStringTextFiled.stringValue.count > 0 else {
             let alert = NSAlert()
             alert.messageText = "必须选择Strings文件"
@@ -116,7 +118,7 @@ class ViewController: NSViewController, NSTableViewDataSource, NSTableViewDelega
             return
         }
         controller.item = csvParse.items[tableView.selectedRow]
-        self.presentViewControllerAsModalWindow(controller)
+        self.presentAsModalWindow(controller)
     }
     
     /* 导出未添加的 Key
@@ -146,8 +148,14 @@ class ViewController: NSViewController, NSTableViewDataSource, NSTableViewDelega
         for key in LocalizeStringKit.shareManager().localizeDictionary.keys {
             /* 去掉 Key 自动生成的字符 */
             let formatterKey = LCFormatterKey(key: key)
+            guard let languageCode = SettingModel.shareSettingModel().projectLanguageCode.first(where: {$0.value == "Base"}) else {
+                let alert = NSAlert()
+                alert.messageText = "请设置基于语言比如基础语言是英语则是(英语:Base)"
+                alert.runModal()
+                return
+            }
             /* 查找母文本的语言数据对象 */
-            guard let item = self.csvParse.getLanguageItem(name: "母文本English") else {
+            guard let item = self.csvParse.getLanguageItem(name: languageCode.key) else {
                 return
             }
             /* 如果当前的 Key 不在多语言表格的 Key 列表里面 */
@@ -280,10 +288,10 @@ class ViewController: NSViewController, NSTableViewDataSource, NSTableViewDelega
                 errorMessage += "[\(fixSource)]占位符和[\(enValue)]占位符个数不一样\n\n"
                 continue
             }
-            guard !value.containChineseChar() else {
-                errorMessage += "[\(fixSource)]不能包含中文\n\n"
-                continue
-            }
+//            guard !value.containChineseChar() else {
+//                errorMessage += "[\(fixSource)]不能包含中文\n\n"
+//                continue
+//            }
             /* 将\" 临时替换为 {T} */
             fixSource = fixSource.replacingOccurrences(of: "\\\"", with: "{T}")
             /* 修复其他" */

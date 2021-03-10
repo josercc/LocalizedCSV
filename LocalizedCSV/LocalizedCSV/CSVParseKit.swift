@@ -53,16 +53,16 @@ class CSVParseKit {
             throw CSVParseKitError.fileError
         }
         /* 获取 CSV 中的内容 */
-        var csvContent = try String(contentsOfFile: file)
+        let csvContent = try String(contentsOfFile: file)
 //        print(csvContent)
         /* 按照\r\n 切割内容为一个数组 */
-        var csvLines = csvContent.components(separatedBy: "\r\n")
+        let csvLines = csvContent.components(separatedBy: "\r\n").compactMap({$0.count == 0 ? nil : $0})
         /* 如果切割不出来则抛出异常 */
         guard csvLines.count > 0 else {
             throw CSVParseKitError.fileError
         }
         /* 翻译的多语言的名称列表 */
-        let supportlanguages = csvLines[0].components(separatedBy: ",")
+        let supportlanguages = csvLines[0].components(separatedBy: ",").compactMap({$0.count == 0 ? nil : $0})
         /* 遍历所有的多语言名称 */
         for language in supportlanguages {
             /* 获取格式化之后的多语言名称 */
@@ -84,7 +84,7 @@ class CSVParseKit {
                 continue
             }
             /* 获取值切割的数组 */
-            let values = c.element.components(separatedBy: ",")
+            let values = c.element.components(separatedBy: ",").compactMap({$0.count == 0 ? nil:$0})
             /* 如果值的数组不等于支持的语言的数组个数 则报错 */
             if values.count != supportlanguages.count {
                 DispatchQueue.main.async {

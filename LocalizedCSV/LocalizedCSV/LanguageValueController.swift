@@ -30,7 +30,7 @@ class LanguageValueController: NSViewController, NSTableViewDataSource, NSTableV
         let openPannel = NSOpenPanel()
         openPannel.canChooseFiles = false
         openPannel.canChooseDirectories = true
-        guard openPannel.runModal() == NSFileHandlingPanelOKButton else {
+        guard openPannel.runModal().rawValue == NSFileHandlingPanelOKButton else {
             return
         }
         guard let path = openPannel.urls.first?.absoluteString.replacingOccurrences(of: "file://", with: "") else {
@@ -83,7 +83,7 @@ class LanguageValueController: NSViewController, NSTableViewDataSource, NSTableV
         let openPannel = NSOpenPanel()
         openPannel.canChooseFiles = false
         openPannel.canChooseDirectories = true
-        guard openPannel.runModal() == NSFileHandlingPanelOKButton else {
+        guard openPannel.runModal().rawValue == NSFileHandlingPanelOKButton else {
             return
         }
         guard let path = openPannel.urls.first?.absoluteString.replacingOccurrences(of: "file://", with: "") else {
@@ -112,7 +112,7 @@ class LanguageValueController: NSViewController, NSTableViewDataSource, NSTableV
         let openPannel = NSOpenPanel()
         openPannel.canChooseFiles = false
         openPannel.canChooseDirectories = true
-        guard openPannel.runModal() == NSFileHandlingPanelOKButton else {
+        guard openPannel.runModal().rawValue == NSFileHandlingPanelOKButton else {
             return
         }
         guard let path = openPannel.urls.first?.absoluteString.replacingOccurrences(of: "file://", with: "") else {
@@ -217,7 +217,7 @@ class LanguageValueController: NSViewController, NSTableViewDataSource, NSTableV
         let openPannel = NSOpenPanel()
         openPannel.canChooseFiles = false
         openPannel.canChooseDirectories = true
-        guard openPannel.runModal() == NSFileHandlingPanelOKButton else {
+        guard openPannel.runModal().rawValue == NSFileHandlingPanelOKButton else {
             return nil
         }
         guard let path = openPannel.urls.first?.absoluteString.replacingOccurrences(of: "file://", with: "") else {

@@ -36,7 +36,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             return
         }
         controller.findPath = path
-        rootController.presentViewControllerAsSheet(controller)
+        rootController.presentAsSheet(controller)
         
     }
     

@@ -34,7 +34,7 @@ class CheckConfigManager {
             let alert = NSAlert()
             alert.messageText = "检测你还没有配置多语言简码，无法继续操作，请进行配置。"
             let response = alert.runModal()
-            if response == NSFileHandlingPanelCancelButton {
+            if response.rawValue == NSFileHandlingPanelCancelButton {
                 if let settingController = NSStoryboard(name: "Main", bundle: nil).instantiateController(withIdentifier: "SettingViewController") as? SettingViewController {
                     let window = NSWindow(contentViewController: settingController)
                     let windowController = NSWindowController(window: window)
@@ -48,7 +48,7 @@ class CheckConfigManager {
             let alert = NSAlert()
             alert.messageText = "检测你还没有读取工程多语言，无法继续操作，请进行读取。"
             let response = alert.runModal()
-            if response == NSFileHandlingPanelCancelButton {
+            if response.rawValue == NSFileHandlingPanelCancelButton {
                 if let appDelegate = NSApp.delegate as? AppDelegate {
                     appDelegate.findProjLocalizeString()
                 }

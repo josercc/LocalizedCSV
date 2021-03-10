@@ -11,7 +11,7 @@ import AppKit
 class PannelKit {
     static func openFilePannel(fileType:String = "") -> String? {
         return self.openPannel(pannnel: { (pannel) in
-            pannel.allowedFileTypes = fileType.characters.count > 0 ? [fileType] : []
+            pannel.allowedFileTypes = fileType.count > 0 ? [fileType] : []
             pannel.canChooseFiles = true
             pannel.canChooseDirectories = false
         })
@@ -27,7 +27,7 @@ class PannelKit {
     static func openPannel(pannnel:((_ make:NSOpenPanel) -> Void)) -> String? {
         let openPannel = NSOpenPanel()
         pannnel(openPannel)
-        guard openPannel.runModal() == NSFileHandlingPanelOKButton else {
+        guard openPannel.runModal().rawValue == NSFileHandlingPanelOKButton else {
             return nil
         }
         return openPannel.urls.first?.absoluteString.replacingOccurrences(of: "file://", with: "")

@@ -48,6 +48,7 @@ class FindLocalizeStringKit {
             }
             /* 开始查找之前 回调正在查找的文件路径 */
             if let completionLog = self.completionLog {
+                print(file)
                 completionLog(file)
             }
             /* 如果文件的内容无法获取到就继续 */

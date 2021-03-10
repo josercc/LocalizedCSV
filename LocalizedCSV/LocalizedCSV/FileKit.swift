@@ -66,7 +66,7 @@ class FileKit {
         let openPannel = NSOpenPanel()
         openPannel.canChooseFiles = false
         openPannel.canChooseDirectories = true
-        guard openPannel.runModal() == NSFileHandlingPanelOKButton else {
+        guard openPannel.runModal().rawValue == NSFileHandlingPanelOKButton else {
             return nil;
         }
         guard let path = openPannel.urls.first?.absoluteString.replacingOccurrences(of: "file://", with: "") else {
@@ -80,7 +80,7 @@ class FileKit {
         openPannel.allowedFileTypes = [fileType]
         openPannel.canChooseFiles = true
         openPannel.canChooseDirectories = false
-        guard openPannel.runModal() == NSFileHandlingPanelOKButton else {
+        guard openPannel.runModal().rawValue == NSFileHandlingPanelOKButton else {
             return ""
         }
         return openPannel.urls.first?.absoluteString.replacingOccurrences(of: "file://", with: "") ?? ""

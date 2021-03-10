@@ -36,7 +36,9 @@ class FindLocalizeStringController: NSViewController, NSTableViewDataSource {
         self.stateLabel.stringValue = "正在查找..."
         /* 查找管理器查找完成的回调 */
         findKit.completionLog = {log in
-            self.filePathLabel.stringValue = log
+            DispatchQueue.main.async {
+                self.filePathLabel.stringValue = log
+            }
         }
         /* 查找管理器查找一组最新的数据回调 */
         findKit.updateCompletion = { key, value in
@@ -68,7 +70,7 @@ class FindLocalizeStringController: NSViewController, NSTableViewDataSource {
         let openPannel = NSOpenPanel()
         openPannel.canChooseFiles = false
         openPannel.canChooseDirectories = true
-        guard openPannel.runModal() == NSFileHandlingPanelOKButton else {
+        guard openPannel.runModal().rawValue == NSFileHandlingPanelOKButton else {
             return
         }
         guard let path = openPannel.urls.first?.absoluteString.replacingOccurrences(of: "file://", with: "") else {

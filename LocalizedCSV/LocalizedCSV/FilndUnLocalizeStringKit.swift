@@ -105,7 +105,7 @@ func findPlaceholder(source:[String], content:String) -> ([String], String) {
 /// 移除最前面空格的字符串
 func removeSpance(content:String) -> String {
     /// 如果数据源字符串为空 则直接返回
-    guard content.characters.count > 0 else {
+    guard content.count > 0 else {
         return content
     }
     /// 获取首个字符串
@@ -158,11 +158,11 @@ func findPlaceholderContent(content: String, nextPlaceholder:String) -> (String?
                 continue
             }
             /// 获取剩下的不足以我们查找下一个占位符 代表字符串错误
-            guard remainContent.characters.count >= nextPlaceholder.characters.count else {
+            guard remainContent.count >= nextPlaceholder.count else {
                 return (nil, remainContent)
             }
             /// 获取占位符的位置
-            let indexPlaceholder = remainContent.index(remainContent.startIndex, offsetBy: nextPlaceholder.characters.count)
+            let indexPlaceholder = remainContent.index(remainContent.startIndex, offsetBy: nextPlaceholder.count)
             /// 获取查找出来的占位符
             let placeholder = remainContent.substring(to: indexPlaceholder)
             /// 如果查找出来的占位符就是我们设置的占位符 代表我们查找结束了 否则就还没有结束

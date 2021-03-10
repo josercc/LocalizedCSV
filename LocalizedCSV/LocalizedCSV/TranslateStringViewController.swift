@@ -9,8 +9,8 @@
 import Cocoa
 
 class TranslateStringViewController: NSViewController, NSTextViewDelegate {
-    @IBOutlet weak var  replaceTextView:NSTextView!
-    @IBOutlet weak var  removeTextView:NSTextView!
+    @IBOutlet var  replaceTextView:NSTextView!
+    @IBOutlet var  removeTextView:NSTextView!
     @IBOutlet weak var  stringTextFiled:NSTextField!
     @IBOutlet weak var  resultTextFiled:NSTextField!
     override func viewDidLoad() {
@@ -27,7 +27,7 @@ class TranslateStringViewController: NSViewController, NSTextViewDelegate {
         viewTextDidChnaged(obj: notification)
     }
     
-    override func controlTextDidChange(_ obj: Notification) {
+    func controlTextDidChange(_ obj: Notification) {
         viewTextDidChnaged(obj: obj)
     }
     
@@ -39,12 +39,8 @@ class TranslateStringViewController: NSViewController, NSTextViewDelegate {
             UserDefaults.standard.set(removeTextView.string, forKey: "removeTextView")
             UserDefaults.standard.synchronize()
         } else if let filed = obj.object as? NSTextField , filed == stringTextFiled {
-            guard let removeString = removeTextView.string else {
-                return
-            }
-            guard let repleaceString = replaceTextView.string else {
-                return
-            }
+            let removeString = removeTextView.string
+            let repleaceString = replaceTextView.string
             var text = stringTextFiled.stringValue
             let removes = removeString.components(separatedBy: "\n")
             let replaces = repleaceString.components(separatedBy: "\n")
